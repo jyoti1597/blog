@@ -1,50 +1,23 @@
-<div class="sideBar">
-	<ul>
-		<div class="logoSec">
-			<img src="../assets/images/logo_image.png">
-			<a href="#" class="sidebarIconButton hide">
-				<i class="fa fa-menu"></i>
-			</a>
-		</div>
-		<li>
-			<a href="#" class="active">
-				<i class="fa fa-home"></i>
-				<span>Home</span>
-			</a>
-		</li>
-		<li>
-			<a href="#">
-				<i class="fa fa-home"></i>
-				<span>Post</span>
-			</a>
-		</li>
-		<li>
-			<a href="#">
-				<i class="fa fa-home"></i>
-				<span>Category</span>
-			</a>
-		</li>
-		<li>
-			<a href="#">
-				<i class="fa fa-home"></i>
-				<span>User</span>
-			</a>
-		</li>
-	</ul>
-	<div class="dropdown">
-		<button class="dropdown-toggle">
-			<div class="userInfo">
-			 	<img src="../assets/images/profile.png" alt="user">
-			 	<span>userName</span>
-			</div>
-		    <i class="fa fa-caret-down"></i>
-		</button>
-		<div class="dropdown-menu">
-			<a href="#">
-				<i class="fa fa-logout"></i>
-				<span>logout</span>
-			</a>
-		</div>
-	</div>
-</div>
-<div class="dashboardSec">
+
+    <div class="dashboard">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <img src="assets/images/logo_image.png" alt="Logo">
+                <a href="#" class="closeBtn"><i class="fa fa-close"></i></a>
+            </div>
+            <ul>
+                <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                <li><a href="#"><i class="fa fa-th-large"></i> Categories</a></li>
+                <li><a href="#"><i class="fa fa-newspaper-o"></i> Blog</a></li>
+                <li><a href="#"><i class="fa fa-user"></i> Users</a></li>
+            </ul>
+            <div class="logout">
+                <div class="profileSection">
+                    <img src="assets/images/profile.png" alt="Profile">
+                    <span>Admin</span>
+                </div>
+                <a href="#" class="logoutBtn"><i class="fa fa-sign-out"></i> Logout</a>
+            </div>
+        </div>
