@@ -1,4 +1,5 @@
-
+<?php include '../common_pages/header.php'; ?>
+<?php include '../common_pages/sidebar.php'; ?>
         <!-- Main Content -->
         <div class="main-content">
 
@@ -27,3 +28,5 @@
             </div>
 
         </div>
+        <!-- End Main Content -->
+<?php include '../common_pages/footer.php'; ?>

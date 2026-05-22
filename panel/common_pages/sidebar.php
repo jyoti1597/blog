@@ -4,7 +4,7 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <div class="logo">
-                <img src="assets/images/logo_image.png" alt="Logo">
+                <img src="../assets/images/logo_image.png" alt="Logo">
                 <a href="#" class="closeBtn"><i class="fa fa-close"></i></a>
             </div>
             <ul>
@@ -15,7 +15,7 @@
             </ul>
             <div class="logout">
                 <div class="profileSection">
-                    <img src="assets/images/profile.png" alt="Profile">
+                    <img src="../assets/images/profile.png" alt="Profile">
                     <span>Admin</span>
                 </div>
                 <a href="#" class="logoutBtn"><i class="fa fa-sign-out"></i> Logout</a>
