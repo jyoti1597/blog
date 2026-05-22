@@ -52,4 +52,10 @@
         /* font-size: 32px; */
         color: #333;
     }
+    .row{
+        display: block;
+    }
+    .tableHeader{
+        display: block;
+    }
 }

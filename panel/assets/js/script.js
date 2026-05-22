@@ -15,7 +15,7 @@ const toggleBtn = document.querySelector('.toggle');
 const sidebar = document.querySelector('.sidebar');
 const closeBtn = document.querySelector('.closeBtn');
 
-toggleBtn.addEventListener('click', () => {
+toggleBtn.addEventListener('click', () => {    
     sidebar.style.display = 'grid';
     closeBtn.style.display = 'block';
 });
