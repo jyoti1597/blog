@@ -121,8 +121,12 @@ a.closeBtn {
   justify-content: space-between;
   padding: 10px;
 }
-.tableHeader h2 {
+.cardHeader h2 {
   font: italic bold 18px/1.5 Arial, sans-serif;
+  background: #333333;
+  width: 100%;
+  padding: 10px;
+  color: #fff;
 }
 .searchBox input {
   padding: 5px;
