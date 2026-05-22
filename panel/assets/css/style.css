@@ -95,14 +95,64 @@
   display: none;
 }
 a.closeBtn {
-    position: absolute;
-    right: 52px;
-    top: 85px;
-    font-size: 40px;
+  position: absolute;
+  right: 52px;
+  top: 85px;
+  font-size: 40px;
+  background: #fff;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  padding: 5px 15px;
+  color: #000;
+}
+.tableSection {
+  margin-top: 20px;
+  width: 100%;
+}
+.tableHeader {
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+.tableHeader h2 {
+  font: italic bold 18px/1.5 Arial, sans-serif;
+}
+.searchBox input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.searchBox button {
+  padding: 5px 10px;
+  border: none;
+  background-color: #3389ff;
+  color: #fff;
+  border-radius: 3px;
+}
+.tableSection table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.tableContainer{
+  width: 100%;
+  overflow-x: auto;
+}
+.searchBox {
+  display: flex;
+  align-items: center;
+}
+
+.tableSection table th, .tableSection table td {
+   padding: 12px;
+  border: 1px solid #ddd;
+  white-space: nowrap;
+}
+.tableSection thead th{
+    position: sticky;
+    top: 0;
     background: #fff;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    padding: 5px 15px;
-    color: #000;
+    z-index: 2;
 }

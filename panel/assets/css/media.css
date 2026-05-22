@@ -27,29 +27,29 @@
         padding: 26px 20px;
     }
     .logo {
-    display: flex;
-    justify-content: space-between;
-}
-.topbar {
-    font-size: 42px;
-    margin-bottom: 60px;
-}
-.countSection {
-    display: block;
-}
-.card {
-    margin-bottom: 20px;
-}
-.card h3 {
-    margin-bottom: 10px;
-    font-size: 35px;
-}
-.card p {
-    font-size: 24px;
-    color: #333;
-}
-.card p {
-    font-size: 32px;
-    color: #333;
-}
+        display: flex;
+        justify-content: space-between;
+    }
+    .topbar {
+        /* font-size: 42px; */
+        margin-bottom: 60px;
+    }
+    .countSection {
+        display: block;
+    }
+    .card {
+        margin-bottom: 20px;
+    }
+    .card h3 {
+        margin-bottom: 10px;
+        /* font-size: 35px; */
+    }
+    .card p {
+        font-size: 24px;
+        color: #333;
+    }
+    .card p {
+        /* font-size: 32px; */
+        color: #333;
+    }
 }
