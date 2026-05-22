@@ -1,0 +1,40 @@
+@media screen and (max-width: 768px){
+    .logo {
+        width: 100px;
+        height: 60px;
+    }
+    .mainSection, .newsCard {
+        display: block;
+        padding: 40px 11px;
+    }
+    nav.navBar {
+        overflow: scroll;
+    }
+    .newsCardList, .newsDetailCard {
+        padding: 28px 25px;
+    }
+    .newsCardList h1::after {
+        top: 83px;
+    }
+    .content .newsTitle {
+        font: bold 28px/1.0 Arial, sans-serif;
+    }
+     ul.postList li{
+        display: block;
+     }
+    .postList ul.newsInfo {
+        margin: 0;
+    }
+    .searchCard {
+        background: #fff;
+        padding: 30px 25px;
+        margin-top: 28px;
+    }
+    ul.paginationList {
+        gap: 10px;
+    }
+    .newsDetailCard img {
+        height: 180px;
+        margin: 15px 0px;
+    }
+}
