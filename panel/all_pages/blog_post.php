@@ -3,10 +3,11 @@
     <!-- Main Content -->
     <div class="main-content">
         <div class="whiteCard">
+            <!-- card header -->
             <div class="cardHeader">
                 <h2>Add Blog Post</h2>
             </div>
-
+            <!--form section -->
             <div class="formSection">
                 <form action="POST" method="POST">
                     <div class="row">
@@ -48,10 +49,11 @@
                     </div>
                 </form>    
             </div>
-            
         </div>
         <div class="whiteCard">
+            <!--table section -->
             <div class="tableSection">
+                <!-- table header -->
                 <div class="tableHeader">
                     <h2>Current Blog Posts</h2>
 
@@ -62,7 +64,7 @@
                         </button>
                     </div>
                 </div>
-
+                <!-- table content -->
                 <div class="tableContainer">
                     <table>
                         <thead>
