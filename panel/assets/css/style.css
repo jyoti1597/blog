@@ -220,3 +220,45 @@ button.submitBtn:hover {
   background: #cf5757;
   opacity: 0.8;
 }
+/*================== login ================= */
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #eeabab;
+}
+.loginCard {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  width: 350px;
+}
+.loginCard img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+.loginCard h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.loginCard form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.loginCard form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.loginCard form button {
+  padding: 10px;
+  border: none;
+  background-color: #3389ff;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
