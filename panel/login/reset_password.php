@@ -16,8 +16,10 @@
                 <img src="../assets/images/logo_image.png" alt="Logo">
                 <h2>Reset Password</h2>
                 <form action="#" method="POST">
-                    <div class="justify-content-center">
+                    <div class="inputGroup">
                         <input type="password" name="new_password" placeholder="New Password" required>
+                    </div>
+                    <div class="inputGroup">
                         <input type="password" name="confirm_password" placeholder="Confirm Password" required>
                     </div>
                     <button type="submit">Reset Password</button>
