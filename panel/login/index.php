@@ -15,12 +15,16 @@
             <div class="loginCard">
                 <img src="../assets/images/logo_image.png" alt="Logo">
                 <h2>Login</h2>
-                <form action="#" method="POST">
-                    <input type="text" name="username" placeholder="Username" required>
-                    <input type="password" name="password" placeholder="Password" required>
+                <form id="loginForm" method="POST">
+                    <input type="email" name="useremail" placeholder="Enter your email Id" required>
+                    <input type="password" name="password" placeholder="Enter your password" required>
                     <button type="submit">Login</button>
                 </form>
+                <div id="loginError" class="error"></div>
             </div>
         </div>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.19.5/jquery.validate.min.js"></script>
+        <script src="../assets/js/script.js"></script>
     </body>
 </html>
