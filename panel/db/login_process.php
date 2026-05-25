@@ -1,25 +1,46 @@
 <?php
-    include 'db_connections.php';
+ include 'db_connections.php';
+ header('Content-Type: application/json');
 
-    
-    // login process
 
-    $userEmail = $_POST['useremail'];
+$result = array();
+
+if (isset($_POST['email']) && isset($_POST['password'])) {
+
+    $userEmail = $_POST['email'];
     $password = $_POST['password'];
 
-    $checkLoginQuery = "SELECT * FROM user_table WHERE email = $userEmail AND password = $password";
+    $hashpassword= password_hash($password, PASSWORD_BCRYPT);
+
+    $checkLoginQuery = "SELECT * FROM user_table 
+                        WHERE email = '$userEmail' 
+                        AND password = '$hashpassword'";
+
     $checkLoginResult = mysqli_query($conn, $checkLoginQuery);
 
-    if(mysqli_num_rows($result)>0){
+    if (mysqli_num_rows($checkLoginResult) > 0) {
 
-        echo"login successfully";
+        $fetch_data = mysqli_fetch_assoc($checkLoginResult);
+        session_start();
 
+        $_SESSION['username'] = $fetch_data['name'];
 
+        $result['status'] = 'success';
+        $result['message'] = 'Login successfully';
+
+    } else {
+
+        $result['status'] = 'error';
+        $result['message'] = 'Invalid username or password';
     }
-    else{
 
-        echo"Invaild login user";
-    }
-    mysqli_close($conn);
+} else {
+
+    $result['status'] = 'error';
+    $result['message'] = 'Email and password required';
+}
+
+echo json_encode($result);
+exit;
 
 ?>
