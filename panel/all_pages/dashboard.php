@@ -1,5 +1,21 @@
 <?php include '../common_pages/header.php'; ?>
 <?php include '../common_pages/sidebar.php'; ?>
+<?php
+
+    $userCountQuery = "SELECT * FROM user_table WHERE genre = 'user'";
+    $userCountResult = mysqli_query($conn, $userCountQuery);
+    $userCount = mysqli_num_rows($userCountResult);
+
+
+    $categoryCountQuery = "SELECT * FROM category_table ";
+    $categoryCountResult = mysqli_query($conn, $categoryCountQuery);
+    $categoryCount = mysqli_num_rows($categoryCountResult);
+
+    $blogCountQuery = "SELECT * FROM blog_table ";
+    $blogCountResult = mysqli_query($conn, $blogCountQuery);
+    $blogCount = mysqli_num_rows($blogCountResult);
+
+?>
         <!-- Main Content -->
         <div class="main-content">
 
@@ -13,17 +29,17 @@
             <div class="countSection">
                 <div class="card">
                     <h3>Users</h3>
-                    <p>+ 1,245</p>
+                    <p>+ <?php echo $userCount; ?></p>
                 </div>
 
                 <div class="card">
                     <h3>Categories</h3>
-                    <p>+ 25</p>
+                    <p>+ <?php echo $categoryCount; ?></p>
                 </div>
 
                 <div class="card">
                     <h3>Blog Posts</h3>
-                    <p>+ 320</p>
+                    <p>+ <?php echo $blogCount; ?></p>
                 </div>
             </div>
             <div class="tableSection">
@@ -53,15 +69,46 @@
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Blog Title</td>
-                                <td>Tech</td>
-                                <td>Jyoti</td>
-                                <td>22 May</td>
-                                <td>Lorem ipsum text</td>
-                                <td>Active</td>
-                            </tr>
+                            <?php
+                            
+                                $blogQuery = "SELECT * FROM blog_table WHERE create_date = CURDATE()";
+                                $blogResult = mysqli_query($conn, $blogQuery);
+
+                                $count = 0;
+
+                                if(mysqli_num_rows($blogResult) > 0){
+
+                                    while($blogArray = mysqli_fetch_array($blogResult)){
+                                        
+                                        $categoryQuery = "SELECT * FROM category_table WHERE id = '".$blogArray['category_id']."'";
+                                        $categoryResult = mysqli_query($conn, $categoryQuery);
+                                        $categoryArray = mysqli_fetch_array($categoryResult);
+
+                                        $count++;
+
+                                        echo"<tr>
+                                            <td>".$blogArray['id']."</td>
+                                            <td>".$blogArray['title']."</td>
+                                            <td>".$categoryArray['category_name']."</td>
+                                            <td>".$blogArray['name']."</td>
+                                            <td>".$blogArray['create_date']."</td>
+                                            <td>".$blogArray['description']."</td>
+                                            <td>";
+                                                if($blogArray['status'] == 1){
+                                                    echo"<button>Approve</button>";
+                                                }
+                                                else{
+                                                     echo"<button>No Approve</button>";
+                                                }
+                                        echo"</td>
+                                        </tr>";
+
+                                    }
+
+                                }
+                            
+                            ?>
+                            
                         </tbody>
                     </table>
                 </div>

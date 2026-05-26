@@ -1,5 +1,10 @@
 <?php
+
     session_start();
+
+    include '../db/db_connections.php';
+
+
 ?>
 
 <!DOCTYPE html>
