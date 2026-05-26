@@ -18,6 +18,6 @@
                     <img src="../assets/images/profile.png" alt="Profile">
                     <span>Admin</span>
                 </div>
-                <a href="#" class="logoutBtn"><i class="fa fa-sign-out"></i> Logout</a>
+                <a href="../db/logout.php" class="logoutBtn"><i class="fa fa-sign-out"></i> Logout</a>
             </div>
         </div>
