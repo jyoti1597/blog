@@ -80,15 +80,45 @@
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Blog Title</td>
-                                <td>Tech</td>
-                                <td>Jyoti</td>
-                                <td>22 May</td>
-                                <td>Lorem ipsum text</td>
-                                <td>Active</td>
-                            </tr>
+                            <?php
+                            
+                                $blogQuery = "SELECT * FROM blog_table WHERE create_date = CURDATE()";
+                                $blogResult = mysqli_query($conn, $blogQuery);
+
+                                $count = 0;
+
+                                if(mysqli_num_rows($blogResult) > 0){
+
+                                    while($blogArray = mysqli_fetch_array($blogResult)){
+                                        
+                                        $categoryQuery = "SELECT * FROM category_table WHERE id = '".$blogArray['category_id']."'";
+                                        $categoryResult = mysqli_query($conn, $categoryQuery);
+                                        $categoryArray = mysqli_fetch_array($categoryResult);
+
+                                        $count++;
+
+                                        echo"<tr>
+                                            <td>".$blogArray['id']."</td>
+                                            <td>".$blogArray['title']."</td>
+                                            <td>".$categoryArray['category_name']."</td>
+                                            <td>".$blogArray['name']."</td>
+                                            <td>".$blogArray['create_date']."</td>
+                                            <td>".$blogArray['description']."</td>
+                                            <td>";
+                                                if($blogArray['status'] == 1){
+                                                    echo"<button>Approve</button>";
+                                                }
+                                                else{
+                                                     echo"<button>No Approve</button>";
+                                                }
+                                        echo"</td>
+                                        </tr>";
+
+                                    }
+
+                                }
+                            
+                            ?>
                         </tbody>
                     </table>
                 </div>
