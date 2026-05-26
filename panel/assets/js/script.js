@@ -1,3 +1,45 @@
+//login
+
+
+$(document).ready(function () {
+    $('#loginForm').submit(function (e) {
+
+        e.preventDefault();
+
+        var formData = $(this).serialize();
+
+        $.ajax({
+            data: formData,
+            type: 'POST',
+            url: '../db/login_process.php',
+            dataType:'json',
+            'cache': false,
+            success: function (response) {
+
+                //var data = JSON.parse(response); 
+                //  console.log(data.status);
+
+                //var data = $.parseJSON(response); 
+                if (response.status == 'success') {
+
+                    window.location.href = '../all_pages/dashboard.php';
+
+                } else {
+
+                    $('#loginError').text(response.message);
+                }
+            },
+
+            error: function () {
+
+                $('#loginError').text('Something went wrong');
+            }
+        });
+
+    });
+});
+
+
 const profileSection = document.querySelector('.profileSection');
 const logoutBtn = document.querySelector('.logoutBtn');
 
@@ -31,42 +73,6 @@ if (toggleBtn && sidebar && closeBtn) {
     });
 }
 
-// login form
-
-$(document).ready(function () {
-
-    $('#loginForm').submit(function (e) {
-        e.preventDefault();
-
-        var formData = $(this).serialize();
-
-        $.ajax({
-            type: 'POST',
-            url: '../db/login_process.php',
-            data: formData,
-            cache: false,
-            dataType:'text',
-            success: function (response) {
-                let data = $.parseJSON(response);               
-                if (data.status == 'success') {
-
-                    window.location.href = '../../all_pages/dashboard.php';
-
-                } else {
-
-                    $('#loginError').text(response.message);
-
-                }
-            },
-
-            error: function () {
-                $('#loginError').text('Something went wrong');
-            }
-        });
-
-    });
-
-});
 
 // function save_data(){
 
