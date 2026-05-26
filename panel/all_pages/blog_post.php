@@ -82,30 +82,30 @@
                         <tbody>
                             <?php
                             
-                                $blogQuery = "SELECT * FROM blog_table WHERE create_date = CURDATE()";
-                                $blogResult = mysqli_query($conn, $blogQuery);
+                                $checkQuery = "SELECT * FROM check_table";
+                                $checkResult = mysqli_query($conn, $checkQuery);
 
                                 $count = 0;
 
-                                if(mysqli_num_rows($blogResult) > 0){
+                                if(mysqli_num_rows($checkResult) > 0){
 
-                                    while($blogArray = mysqli_fetch_array($blogResult)){
+                                    while($checkArray = mysqli_fetch_array($checkResult)){
                                         
-                                        $categoryQuery = "SELECT * FROM category_table WHERE id = '".$blogArray['category_id']."'";
+                                        $categoryQuery = "SELECT * FROM category_table WHERE id = '".$checkArray['category_id']."'";
                                         $categoryResult = mysqli_query($conn, $categoryQuery);
                                         $categoryArray = mysqli_fetch_array($categoryResult);
 
                                         $count++;
 
                                         echo"<tr>
-                                            <td>".$blogArray['id']."</td>
-                                            <td>".$blogArray['title']."</td>
+                                            <td>".$checkArray['id']."</td>
+                                            <td>".$checkArray['title']."</td>
                                             <td>".$categoryArray['category_name']."</td>
-                                            <td>".$blogArray['name']."</td>
-                                            <td>".$blogArray['create_date']."</td>
-                                            <td>".$blogArray['description']."</td>
+                                            <td>".$checkArray['name']."</td>
+                                            <td>".$checkArray['create_date']."</td>
+                                            <td>".$checkArray['description']."</td>
                                             <td>";
-                                                if($blogArray['status'] == 1){
+                                                if($checkArray['status'] == 1){
                                                     echo"<button>Approve</button>";
                                                 }
                                                 else{

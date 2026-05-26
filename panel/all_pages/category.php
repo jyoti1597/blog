@@ -46,11 +46,29 @@
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Tech</td>
-                                <td>22 May</td>
-                            </tr>
+                            <?php
+                            
+                                $checkQuery = "SELECT * FROM category_table ";
+                                $checkResult = mysqli_query($conn, $checkQuery);
+
+                                $count = 0;
+
+                                if(mysqli_num_rows($checkResult) > 0){
+
+                                    while($checkArray = mysqli_fetch_array($checkResult)){
+                                        
+                                        $count++;
+
+                                        echo"<tr>
+                                            <td>".$blogArray['id']."</td>
+                                            <td>".$categoryArray['category_name']."</td>
+                                        </tr>";
+
+                                    }
+
+                                }
+                            
+                            ?>
                         </tbody>
                     </table>
                 </div>
