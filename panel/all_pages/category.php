@@ -15,7 +15,9 @@
                             <label for="category">Category</label>
                             <input type="text" id="category" placeholder="Enter category name">
                         </div>
-                        <button type="submit" class="submitBtn">Submit</button>
+                        <div class="inputGroup justify-content-end mt-24">
+                            <button type="submit" class="submitBtn">Submit</button>
+                        </div>
                     </div>
                 </form>    
             </div>

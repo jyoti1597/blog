@@ -7,6 +7,12 @@
 .justify-content-center {
   justify-content: center;
 }
+.justify-content-end{
+  justify-content: end;
+}
+.mt-24{
+  margin-top: 0;
+}
 /*================== sidebar================ */
 .sidebar {
   width: 250px;
