@@ -33,7 +33,38 @@ if (toggleBtn && sidebar && closeBtn) {
     });
 }
 
+$(document).ready(function () {
+    $('#common-form-method').submit(function (e) {
+         e.preventDefault();
 
+        var formData = $(this).serialize();
+
+        $.ajax({
+            data: formData,
+            type: 'POST',
+            url: '../db/insert-data.php',
+            dataType:'json',
+            'cache': false,
+            success: function (response) {
+                if (response.status == 'success') {
+
+                    setTimeout(function () {
+                        location.reload();
+                        $('#message').text(response.message);
+                    }, 3000);
+
+                } else {
+
+                    $('#message').text(response.message);
+                }
+            },
+            error: function () {
+
+                $('#loginError').text('Something went wrong');
+            }
+        });
+    });
+});
 // function save_data(){
 
 //     var form_element = document.getElementsByClassName('form_data');

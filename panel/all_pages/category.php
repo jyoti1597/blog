@@ -9,14 +9,14 @@
             </div>
             <!--form section -->
             <div class="formSection">
-                <form action="POST" method="POST">
+                <form id="common-form-method" method="POST">
                     <div class="row">
                         <div class="inputGroup">
                             <label for="category">Category</label>
-                            <input type="text" id="category" placeholder="Enter category name">
+                            <input type="text" id="category" name="category_name" placeholder="Enter category name" required>
                         </div>
                         <div class="inputGroup justify-content-end mt-24">
-                            <button type="submit" class="submitBtn">Submit</button>
+                            <button type="submit" class="submitBtn" name="submit" value="submit">Submit</button>
                         </div>
                     </div>
                 </form>    
@@ -78,4 +78,5 @@
         </div>
     </div>
     <!-- End of Main Content -->
+     <div class="message"></div>
 <?php include '../common_pages/footer.php'; ?>
