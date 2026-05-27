@@ -60,8 +60,8 @@
                                         $count++;
 
                                         echo"<tr>
-                                            <td>".$blogArray['id']."</td>
-                                            <td>".$categoryArray['category_name']."</td>
+                                            <td>".$checkArray['id']."</td>
+                                            <td>".$checkArray['category_name']."</td>
                                         </tr>";
 
                                     }

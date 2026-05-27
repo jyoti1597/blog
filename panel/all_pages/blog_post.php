@@ -82,7 +82,7 @@
                         <tbody>
                             <?php
                             
-                                $checkQuery = "SELECT * FROM check_table";
+                                $checkQuery = "SELECT * FROM blog_table";
                                 $checkResult = mysqli_query($conn, $checkQuery);
 
                                 $count = 0;

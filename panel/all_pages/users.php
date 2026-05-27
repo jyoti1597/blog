@@ -62,13 +62,32 @@
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>John Doe</td>
-                                <td>john.doe@example.com</td>
-                                <td>22 May</td>
-                                <td>Active</td>
-                            </tr>
+                            <?php
+                            
+                                $checkQuery = "SELECT * FROM user_table ";
+                                $checkResult = mysqli_query($conn, $checkQuery);
+
+                                $count = 0;
+
+                                if(mysqli_num_rows($checkResult) > 0){
+
+                                    while($checkArray = mysqli_fetch_array($checkResult)){
+                                        
+                                        $count++;
+
+                                        echo"<tr>
+                                            <td>".$checkArray['userId']."</td>
+                                            <td>".$checkArray['name']."</td>
+                                            <td>".$checkArray['email']."</td>
+                                            <td>".$checkArray['create_date']."</td>
+                                            <td>Active</td>
+                                        </tr>";
+
+                                    }
+
+                                }
+                            
+                            ?>
                         </tbody>
                     </table>
                 </div>
