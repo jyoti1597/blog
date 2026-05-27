@@ -37,7 +37,7 @@ $(document).ready(function () {
     $('#common-form-method').submit(function (e) {
          e.preventDefault();
 
-        var formData = $(this).serialize();
+        var formData = new FormData(this);
 
         $.ajax({
             data: formData,
@@ -45,6 +45,8 @@ $(document).ready(function () {
             url: '../db/insert-data.php',
             dataType:'json',
             'cache': false,
+            processData:false,
+            contentType:false,
             success: function (response) {
                 if (response.status == 'success') {
 

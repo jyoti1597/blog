@@ -64,6 +64,7 @@
                                         echo"<tr>
                                             <td>".$checkArray['id']."</td>
                                             <td>".$checkArray['category_name']."</td>
+                                            <td>".$checkArray['create_date']."</td>
                                         </tr>";
 
                                     }

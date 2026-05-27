@@ -9,23 +9,23 @@
             </div>
             <!--form section -->
             <div class="formSection">
-                <form action="POST" method="POST">
+                <form id="common-form-method" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="inputGroup">
-                            <label for="title">Name</label>
-                            <input type="text" id="title" placeholder="Enter your name">
+                            <label for="username">Name</label>
+                            <input type="text" id="username" name="username" placeholder="Enter your name" required>
                         </div>
                         <div class="inputGroup">
-                            <label for="title">Email</label>
-                            <input type="email" id="title" placeholder="Enter your email">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email" required>
                         </div>
                         <div class="inputGroup">
-                            <label for="title">Password</label>
-                            <input type="password" id="title" placeholder="Enter your password">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" placeholder="Enter your password" required>
                         </div>
                         <div class ="inputGroup">
                             <label for="image">Image </label>
-                            <input type="file" id="image" accept="image/*">
+                            <input type="file" name="image" id="image" accept="image/*" required>
                         </div>
                     </div>
                     <div class="row justify-content-center">
@@ -76,7 +76,7 @@
                                         $count++;
 
                                         echo"<tr>
-                                            <td>".$checkArray['userId']."</td>
+                                            <td>".$checkArray['id']."</td>
                                             <td>".$checkArray['name']."</td>
                                             <td>".$checkArray['email']."</td>
                                             <td>".$checkArray['create_date']."</td>
