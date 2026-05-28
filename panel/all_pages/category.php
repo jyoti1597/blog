@@ -1,5 +1,6 @@
 <?php include '../common_pages/header.php'; ?>
 <?php include '../common_pages/sidebar.php'; ?>
+
     <!-- Main Content -->
     <div class="main-content">
         <div class="whiteCard">
@@ -12,7 +13,7 @@
                 <form id="common-form-method" method="POST">
                     <div class="row">
                         <div class="inputGroup">
-                            <input type="hidden" name="form_name" value="category">
+                            <input type="hidden" name="form_name" value="add-category">
                             <label for="category">Category</label>
                             <input type="text" id="category" name="category_name" placeholder="Enter category name" required>
                         </div>
@@ -68,26 +69,28 @@
                                             <td>".$checkArray['category_name']."</td>
                                             <td>".date('d M Y',strtotime($checkArray['create_date']))."</td>
                                             <td>
-                                                <a class='editBtn' href='edit_blog_post.php?id=".$checkArray['id']."'>
-                                                    <i class='fa fa-edit'></i>
-                                                </a>";
-                                            if($checkArray['status'] == 0){
-                                                echo"<button type='button' class='deleteBtn' onclick='openModal(".$checkArray['id'].")'>
-                                                        <i class='fa fa-trash'></i>
-                                                    </button>";
-                                            }
-                                            else{
-                                                echo"<button class='deleteBtn'>
-                                                        <i class='fa fa-trash'></i>
-                                                    </button>";
-                                            }
-                                       echo"</td>
+                                                <div class='row justify-content-center'>
+                                                    <a class='editBtn' href='edit_category.php?id=".$checkArray['id']."'>
+                                                        <i class='fa fa-edit'></i>
+                                                    </a>";
+                                                if($checkArray['status'] == 0){
+                                                    echo"<button type='button' class='deleteBtn' onclick='openModal(".$checkArray['id'].")'>
+                                                            <i class='fa fa-trash'></i>
+                                                        </button>";
+                                                }
+                                                else{
+                                                    echo"<button class='deleteBtn'>
+                                                            <i class='fa fa-trash'></i>
+                                                        </button>";
+                                                }
+                                        echo"</div>
+                                            </td>
                                        </tr>
                                        <div class='modal' id='deleteModal".$checkArray['id']."'>
                                             <div class='modal-content'>
                                                 <h2>Delete the record</h2>
                                                 <p>Are you sure you want to delete this data?</p>
-                                                <div class='modal-buttons'>
+                                                <div class='row justify-content-start mt-10'>
                                                     <a href='delete.php?id=".$checkArray['id']."' class='redBtn'>
                                                         delete
                                                     </a>

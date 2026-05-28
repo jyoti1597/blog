@@ -6,8 +6,8 @@
 
     $result = array();
 
-    // category page
-    if($_POST['form_name']== 'category'){
+    //add category page
+    if($_POST['form_name']== 'add-category'){
         $categoryName = mysqli_real_escape_string($conn,$_POST['category_name']);
 
         $insertQuery = "INSERT INTO category_table (category_name) VALUES('$categoryName')";
@@ -16,6 +16,24 @@
         if ($insertResult) {
             $response['status'] = 'success';
             $response['message'] = 'Added Successfully';
+        }
+        else{
+            $response['status'] = 'error';
+            $response['message'] = 'Something went wrong !!';
+        }
+    }
+
+    //edit category page
+    if($_POST['form_name']== 'edit-category'){
+        $categoryName = mysqli_real_escape_string($conn,$_POST['category_name']);
+        $id = mysqli_real_escape_string($conn,$_POST['id']);
+
+        $insertQuery = "UPDATE category_table SET category_name = '$categoryName' WHERE id = '$id'";
+        $insertResult = mysqli_query($conn, $insertQuery);
+
+        if ($insertResult) {
+            $response['status'] = 'success';
+            $response['message'] = 'Updated Successfully';
         }
         else{
             $response['status'] = 'error';

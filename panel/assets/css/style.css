@@ -10,8 +10,11 @@
 .justify-content-end{
   justify-content: end;
 }
-.mt-24{
-  margin-top: 0;
+.justify-content-start{
+  justify-content: start;
+}
+.mt-10{
+  margin-top: 10px;
 }
 a.editBtn , button.deleteBtn{
   padding: 7px;
@@ -185,6 +188,7 @@ a.closeBtn {
   padding: 12px;
   border: 1px solid #ddd;
   white-space: nowrap;
+  text-align: center;
 }
 .tableSection thead th{
   position: sticky;
@@ -212,7 +216,7 @@ a.closeBtn {
 .row {
   display: flex;
   gap: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .inputGroup {
   flex: 1;
@@ -312,6 +316,7 @@ button.submitBtn:hover {
   padding:20px;
   border-radius:10px;
   animation:popup 0.3s ease;
+  /* text-align: center; */
 }
 
 @keyframes popup{
@@ -328,11 +333,11 @@ button.submitBtn:hover {
 .modal-content h2{
   margin-bottom:10px;
 }
-.modal-buttons {
+/* .modal-buttons {
     display: flex;
     gap: 10px;
     margin: 10px;
-}
+} */
 .cancel-btn{
   background:gray;
   color:white;
