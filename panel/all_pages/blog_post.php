@@ -12,8 +12,10 @@
                 <form id="common-form-method" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="inputGroup">
-                            <label for="category">Category</label>
-                            <select id="categoryId" name="category" required>
+                            <label for="categoryId">Category</label>
+                            <input type="hidden" name="form_name" value="blog_post">
+                            <input type="hidden" name="userId" value="<?php echo "".$_SESSION['userId']."";?>">
+                            <select id="categoryId" name="categoryId" required>
                                 <option value="">Select category</option>
                                 <?php
                                     $checkQuery = "SELECT * FROM category_table";
@@ -25,8 +27,11 @@
                                         while($checkArray = mysqli_fetch_array($checkResult)){
                                             $count++;
 
-                                             $category = $checkArray['category_name'];
-                                             //echo "<option value='; if$checkArray['id']'>$category</option>";
+                                            $category = $checkArray['category_name'];
+
+                                            if($checkArray['id'] != ''){
+                                                echo "<option value='".$checkArray['id']."'>$category</option>";
+                                            }
                                         }
                                     }
                                 
@@ -41,8 +46,8 @@
                             <label for="status">Status</label>
                             <select id="status" name="status" required>
                                 <option value="">Select status</option>
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
+                                <option value="1">Active</option>
+                                <option value="2">Inactive</option>
                             </select>
                         </div>
                         <div class ="inputGroup">
@@ -108,13 +113,18 @@
                                         $categoryResult = mysqli_query($conn, $categoryQuery);
                                         $categoryArray = mysqli_fetch_array($categoryResult);
 
+                                        $userQuery = "SELECT * FROM user_table WHERE id = '".$checkArray['userId']."'";
+                                        $userResult = mysqli_query($conn, $userQuery);
+                                        $userArray = mysqli_fetch_array($userResult);
+
+
                                         $count++;
 
                                         echo"<tr>
                                             <td>".$checkArray['id']."</td>
                                             <td>".$checkArray['title']."</td>
                                             <td>".$categoryArray['category_name']."</td>
-                                            <td>".$checkArray['name']."</td>
+                                            <td>".$userArray['name']."</td>
                                             <td>".$checkArray['create_date']."</td>
                                             <td>".$checkArray['description']."</td>
                                             <td>";
@@ -122,7 +132,7 @@
                                                     echo"<button>Approve</button>";
                                                 }
                                                 else{
-                                                     echo"<button>No Approve</button>";
+                                                     echo"<button>Not Approve</button>";
                                                 }
                                         echo"</td>
                                         </tr>";

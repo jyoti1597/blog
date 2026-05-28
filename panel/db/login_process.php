@@ -27,7 +27,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         $fetch_data = mysqli_fetch_assoc($checkLoginResult);
         session_start();
         $_SESSION['username'] = $fetch_data['name'];
-        $_SESSION['userId'] = $fetch_data['userId'];
+        $_SESSION['userId'] = $fetch_data['id'];
     
     
     } else {

@@ -12,6 +12,7 @@
                 <form id="common-form-method" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="inputGroup">
+                            <input type="hidden" name="form_name" value="user">
                             <label for="username">Name</label>
                             <input type="text" id="username" name="username" placeholder="Enter your name" required>
                         </div>

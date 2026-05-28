@@ -12,6 +12,7 @@
                 <form id="common-form-method" method="POST">
                     <div class="row">
                         <div class="inputGroup">
+                            <input type="hidden" name="form_name" value="category">
                             <label for="category">Category</label>
                             <input type="text" id="category" name="category_name" placeholder="Enter category name" required>
                         </div>

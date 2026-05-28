@@ -7,7 +7,7 @@
     $result = array();
 
     // category page
-    if(isset($_POST['category_name'])){
+    if($_POST['form_name']== 'category'){
         $categoryName = mysqli_real_escape_string($conn,$_POST['category_name']);
 
         $insertQuery = "INSERT INTO category_table (category_name) VALUES('$categoryName')";
@@ -24,7 +24,7 @@
     }
 
     // user page
-    if(isset($_POST['username'])){
+    if($_POST['form_name'] == 'user'){
         $userName = mysqli_real_escape_string($conn,$_POST['username']);
         $email = mysqli_real_escape_string($conn,$_POST['email']);
         $password = mysqli_real_escape_string($conn,$_POST['password']);
@@ -90,18 +90,15 @@
             $response['message'] = 'Please Select Image';
         }
 
-    }else{
-
-        $response['status'] = 'error';
-        $response['message'] = 'Invalid Request';
     }
 
     // blog page
-    if(isset($_POST[''])){
-        $userName = mysqli_real_escape_string($conn,$_POST['username']);
-        $email = mysqli_real_escape_string($conn,$_POST['email']);
-        $password = mysqli_real_escape_string($conn,$_POST['password']);
-        $genre = 'user';
+    if($_POST['form_name'] == 'blog_post'){
+        $categoryId = mysqli_real_escape_string($conn,$_POST['categoryId']);
+        $title = mysqli_real_escape_string($conn,$_POST['title']);
+        $status = mysqli_real_escape_string($conn,$_POST['status']);
+        $description = mysqli_real_escape_string($conn,$_POST['description']);
+        $userId = mysqli_real_escape_string($conn,$_POST['userId']);
         // Check image selected
         if(isset($_FILES['image']) && $_FILES['image']['error'] == 0){
 
@@ -141,7 +138,7 @@
                 move_uploaded_file($tmpName, "../assets/images/blog/" . $newName);
 
                 // Insert query
-                $insertQuery = "INSERT INTO user_table(name,email,password,image,genre) VALUES('$userName','$email','$password','$newName','$genre')";
+                $insertQuery = "INSERT INTO blog_table(category_id, title, status, image, description, userId) VALUES('$categoryId','$title','$status','$newName','$description', $userId)";
 
                 $insertResult = mysqli_query($conn, $insertQuery);
 
