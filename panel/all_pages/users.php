@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div class="row justify-content-center">
-                        <button type="submit" class="submitBtn">Submit</button>
+                        <button type="submit" class="submitBtn" name="submit" value="submit">Submit</button>
                     </div>
                 </form>    
             </div>
@@ -80,7 +80,7 @@
                                             <td>".$checkArray['id']."</td>
                                             <td>".$checkArray['name']."</td>
                                             <td>".$checkArray['email']."</td>
-                                            <td>".$checkArray['create_date']."</td>
+                                            <td>".date('d M Y',strtotime($checkArray['create_date']))."</td>
                                             <td>Active</td>
                                         </tr>";
 

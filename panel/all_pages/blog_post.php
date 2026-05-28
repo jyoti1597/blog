@@ -125,7 +125,7 @@
                                             <td>".$checkArray['title']."</td>
                                             <td>".$categoryArray['category_name']."</td>
                                             <td>".$userArray['name']."</td>
-                                            <td>".$checkArray['create_date']."</td>
+                                            <td>".date('d M Y',strtotime($checkArray['create_date']))."</td>
                                             <td>".$checkArray['description']."</td>
                                             <td>";
                                                 if($checkArray['status'] == 1){

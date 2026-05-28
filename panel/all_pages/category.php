@@ -45,6 +45,7 @@
                                 <th>S.No.</th>
                                 <th>Category</th>
                                 <th>Date Created</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
 
@@ -65,8 +66,37 @@
                                         echo"<tr>
                                             <td>".$checkArray['id']."</td>
                                             <td>".$checkArray['category_name']."</td>
-                                            <td>".$checkArray['create_date']."</td>
-                                        </tr>";
+                                            <td>".date('d M Y',strtotime($checkArray['create_date']))."</td>
+                                            <td>
+                                                <a class='editBtn' href='edit_blog_post.php?id=".$checkArray['id']."'>
+                                                    <i class='fa fa-edit'></i>
+                                                </a>";
+                                            if($checkArray['status'] == 0){
+                                                echo"<button type='button' class='deleteBtn' onclick='openModal(".$checkArray['id'].")'>
+                                                        <i class='fa fa-trash'></i>
+                                                    </button>";
+                                            }
+                                            else{
+                                                echo"<button class='deleteBtn'>
+                                                        <i class='fa fa-trash'></i>
+                                                    </button>";
+                                            }
+                                       echo"</td>
+                                       </tr>
+                                       <div class='modal' id='deleteModal".$checkArray['id']."'>
+                                            <div class='modal-content'>
+                                                <h2>Delete the record</h2>
+                                                <p>Are you sure you want to delete this data?</p>
+                                                <div class='modal-buttons'>
+                                                    <a href='delete.php?id=".$checkArray['id']."' class='redBtn'>
+                                                        delete
+                                                    </a>
+                                                    <button class='cancel-btn' onclick='closeModal(".$checkArray['id'].")'>
+                                                        Cancel
+                                                    </button>
+                                                </div>
+                                            </div>
+                                       </div>";
 
                                     }
 

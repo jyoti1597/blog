@@ -91,7 +91,7 @@
                                             <td>".$blogArray['title']."</td>
                                             <td>".$categoryArray['category_name']."</td>
                                             <td>".$blogArray['name']."</td>
-                                            <td>".$blogArray['create_date']."</td>
+                                            <td>".date('d M Y',strtotime($checkArray['create_date']))."</td>
                                             <td>".$blogArray['description']."</td>
                                             <td>";
                                                 if($blogArray['status'] == 1){

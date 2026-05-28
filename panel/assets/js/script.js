@@ -107,3 +107,10 @@ $(document).ready(function () {
 //         }
 //     }
 // }
+function openModal(id){
+    document.getElementById('deleteModal'+id).style.display = 'flex';
+}
+
+function closeModal(id){
+    document.getElementById('deleteModal'+id).style.display = 'none';
+}

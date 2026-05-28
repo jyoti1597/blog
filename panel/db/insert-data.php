@@ -100,42 +100,46 @@
         $description = mysqli_real_escape_string($conn,$_POST['description']);
         $userId = mysqli_real_escape_string($conn,$_POST['userId']);
         // Check image selected
-        if(isset($_FILES['image']) && $_FILES['image']['error'] == 0){
 
-            $imageName = $_FILES['image']['name'];
-            $tmpName   = $_FILES['image']['tmp_name'];
-            $fileSize  = $_FILES['image']['size'];
+        $imageName = $_FILES['image']['name'];
+        $tmpName   = $_FILES['image']['tmp_name'];
+        $fileSize  = $_FILES['image']['size'];
+        $fileType = $_FILES['image']['type'];
 
-            // 5MB
-            $maxSize = 5 * 1024 * 1024;
+        // 5MB
+        $maxSize = 5 * 1024 * 1024;
 
-            // Extension
-            $extension = strtolower(pathinfo($imageName, PATHINFO_EXTENSION));
+        // Extension
 
-            // Allowed types
-            $allowed = ['jpg', 'jpeg', 'png'];
+        $fileExt = explode('.', $fileName);
+        $fileActualExt = strolower(end($fileExt));
+        //$extension = strtolower(pathinfo($imageName, PATHINFO_EXTENSION));
 
-            // Check extension
-            if(!in_array($extension, $allowed)){
+        // Allowed types
+        $allowed = ['jpg', 'jpeg', 'png'];
 
-                $response['status'] = 'error';
-                $response['message'] = 'Only JPG, JPEG and PNG allowed';
+        // Check extension
+        if(in_array($fileActualExt, $allowed)){
 
-            }
-            // Check size
-            elseif($fileSize > $maxSize){
+            $response['status'] = 'error';
+            $response['message'] = 'Only JPG, JPEG and PNG allowed';
 
-                $response['status'] = 'error';
-                $response['message'] = 'Image size must be less than 5 MB';
+        }
+        // Check size
+        elseif($fileSize > $maxSize){
 
-            }
-            else{
+            $response['status'] = 'error';
+            $response['message'] = 'Image size must be less than 5 MB';
 
+        }
+        else{
+            
+            if($fileError == 0){
                 // New image name
                 $newName = time() . "_" . $imageName;
 
                 // Upload image
-                move_uploaded_file($tmpName, "../assets/images/blog/" . $newName);
+                move_uploaded_file($fileActualExt, "../assets/images/blog/" . $newName);
 
                 // Insert query
                 $insertQuery = "INSERT INTO blog_table(category_id, title, status, image, description, userId) VALUES('$categoryId','$title','$status','$newName','$description', $userId)";
@@ -153,17 +157,13 @@
                     $response['message'] = 'Database Error';
                 }
             }
+            else{
 
-        }else{
-
-            $response['status'] = 'error';
-            $response['message'] = 'Please Select Image';
+                $response['status'] = 'error';
+                $response['message'] = 'There was an error uploading your file!';
+            }
         }
 
-    }else{
-
-        $response['status'] = 'error';
-        $response['message'] = 'Invalid Request';
     }
     
     
