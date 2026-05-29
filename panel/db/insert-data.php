@@ -6,8 +6,29 @@
 
     $result = array();
 
+    //delete for all table
+
+    if($_POST['type'] == 'delete'){
+        $table_name = mysqli_real_escape_string($conn,$_POST['table_name']);
+        $id = mysqli_real_escape_string($conn,$_POST['id']);
+
+        $deleteQuery = "UPDATE $table_name SET status = '1' WHERE id = '$id'";
+        $deleteResult = mysqli_query($conn, $deleteQuery);
+
+        if($deleteResult){
+            $response['status'] = 'success';
+            $response['message'] = 'Deleted Successfully';
+            $response['id'] = $id;
+        }
+        else{
+            $response['status'] = 'error';
+            $response['message'] = 'Something went wrong !!';
+            $response['id'] = $id;
+        }
+    }
+
     //add category page
-    if($_POST['form_name']== 'add-category'){
+    if(isset($_POST['form_name']) && $_POST['form_name'] == 'add-category'){
         $categoryName = mysqli_real_escape_string($conn,$_POST['category_name']);
 
         $insertQuery = "INSERT INTO category_table (category_name) VALUES('$categoryName')";
@@ -24,7 +45,7 @@
     }
 
     //edit category page
-    if($_POST['form_name']== 'edit-category'){
+    if(isset($_POST['form_name']) && $_POST['form_name'] == 'edit-category'){
         $categoryName = mysqli_real_escape_string($conn,$_POST['category_name']);
         $id = mysqli_real_escape_string($conn,$_POST['id']);
 
@@ -42,7 +63,7 @@
     }
 
     // user page
-    if($_POST['form_name'] == 'user'){
+    if(isset($_POST['form_name']) && $_POST['form_name'] == 'user'){
         $userName = mysqli_real_escape_string($conn,$_POST['username']);
         $email = mysqli_real_escape_string($conn,$_POST['email']);
         $password = mysqli_real_escape_string($conn,$_POST['password']);
@@ -111,7 +132,7 @@
     }
 
     // blog page
-    if($_POST['form_name'] == 'blog_post'){
+    if(isset($_POST['form_name']) && $_POST['form_name'] == 'blog_post'){
         $categoryId = mysqli_real_escape_string($conn,$_POST['categoryId']);
         $title = mysqli_real_escape_string($conn,$_POST['title']);
         $status = mysqli_real_escape_string($conn,$_POST['status']);

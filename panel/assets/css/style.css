@@ -16,7 +16,7 @@
 .mt-10{
   margin-top: 10px;
 }
-a.editBtn , button.deleteBtn{
+a.editBtn , button.deleteIconBtn{
   padding: 7px;
   color: #fff;
   text-decoration: none;
@@ -32,10 +32,10 @@ a.editBtn , button.deleteBtn{
 a.editBtn{
   background: #3389ff;
 }
-.deleteBtn{
+.deleteIconBtn{
   background: #bc3535;
 }
-a.editBtn:hover , button.deleteBtn:hover{
+a.editBtn:hover , button.deleteIconBtn:hover{
   opacity: 0.6;
 }
 /*================== sidebar================ */

@@ -53,7 +53,7 @@
                         <tbody>
                             <?php
                             
-                                $checkQuery = "SELECT * FROM category_table ";
+                                $checkQuery = "SELECT * FROM category_table WHERE status = 0 ";
                                 $checkResult = mysqli_query($conn, $checkQuery);
 
                                 $count = 0;
@@ -74,12 +74,12 @@
                                                         <i class='fa fa-edit'></i>
                                                     </a>";
                                                 if($checkArray['status'] == 0){
-                                                    echo"<button type='button' class='deleteBtn' onclick='openModal(".$checkArray['id'].")'>
+                                                    echo"<button type='button' class='deleteIconBtn' onclick='openModal(".$checkArray['id'].")'>
                                                             <i class='fa fa-trash'></i>
                                                         </button>";
                                                 }
                                                 else{
-                                                    echo"<button class='deleteBtn'>
+                                                    echo"<button class='deleteIconBtn'>
                                                             <i class='fa fa-trash'></i>
                                                         </button>";
                                                 }
@@ -91,12 +91,18 @@
                                                 <h2>Delete the record</h2>
                                                 <p>Are you sure you want to delete this data?</p>
                                                 <div class='row justify-content-start mt-10'>
-                                                    <a href='delete.php?id=".$checkArray['id']."' class='redBtn'>
-                                                        delete
-                                                    </a>
-                                                    <button class='cancel-btn' onclick='closeModal(".$checkArray['id'].")'>
-                                                        Cancel
-                                                    </button>
+                                                    <form class='delete-form' method='POST' enctype='multipart/form-data'>
+                                                        <input type='hidden' name='type' value='delete'>
+                                                        <input type='hidden' name='table_name' value='category_table'>
+                                                        <input type='hidden' name='id' value='".$checkArray['id']."'>
+                                                        <button class='redBtn deleteBtn' type='submit'>
+                                                            Delete
+                                                        </button>
+                                                        
+                                                        <button class='cancel-btn' onclick='closeModal(".$checkArray['id'].")'>
+                                                            Cancel
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </div>
                                        </div>";
