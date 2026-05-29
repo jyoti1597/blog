@@ -114,6 +114,19 @@
                             ?>
                         </tbody>
                     </table>
+                    <?php
+                        $checkQuery = "SELECT * FROM category_table WHERE status = 0 ";
+                        $checkResult = mysqli_query($conn, $checkQuery);
+
+                        $count = 0;
+
+                        if(mysqli_num_rows($checkResult) > 0){
+
+                        }
+
+                    
+                    ?>
+                
                 </div>
             </div>
         </div>
