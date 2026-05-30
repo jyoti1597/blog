@@ -74,13 +74,6 @@
                 <!-- table header -->
                 <div class="tableHeader">
                     <h2>Current Blog Posts</h2>
-
-                    <div class="searchBox">
-                        <input type="text" placeholder="Search...">
-                        <button>
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </div>
                 </div>
                 <!-- table content -->
                 <div class="tableContainer">
@@ -99,8 +92,17 @@
 
                         <tbody>
                             <?php
-                            
-                                $checkQuery = "SELECT * FROM blog_table";
+                                $limit = 10;
+
+                                if(isset($_GET['page'])){
+                                    $page = $_GET['page'];
+                                }
+                                else{
+                                    $page = 1;
+                                }
+                                $offset = ($page - 1) * $limit;
+
+                                $checkQuery = "SELECT * FROM blog_table WHERE status = 0 ORDER BY id ASC LIMIT {$offset}, {$limit}";
                                 $checkResult = mysqli_query($conn, $checkQuery);
 
                                 $count = 0;
@@ -127,26 +129,124 @@
                                             <td>".$userArray['name']."</td>
                                             <td>".date('d M Y',strtotime($checkArray['create_date']))."</td>
                                             <td>".$checkArray['description']."</td>
-                                            <td>";
-                                                if($checkArray['status'] == 1){
-                                                    echo"<button>Approve</button>";
+                                            <td>
+                                                <div class='row'>
+                                                    <form class='approval-form' method='POST' enctype='multipart/form-data'>
+                                                        <input type='hidden' name='form_name' value='post_approval'>
+                                                        <input type='hidden' name='id' value='".$checkArray['id']."'>";
+                                                if($checkArray['post_status'] == 1){
+                                                    
+
+                                                    echo"<input type='hidden' name='post_status' value='not_approve'>
+                                                    <button type='submit' class='notApproveBtn'><i class='fa fa-eye-slash'></i></button>";
                                                 }
                                                 else{
-                                                     echo"<button>Not Approve</button>";
+                                                     echo"<input type='hidden' name='post_status' value='approve'>
+                                                        <button type='submit' class='approveBtn'><i class='fa fa-eye'></i></button>";
                                                 }
-                                        echo"</td>
-                                        </tr>";
+                                               echo"</form>
+                                                    <a class='editBtn' herf='edit_blog_post.php?id=".$checkArray['id']."'>
+                                                        <i class='fa fa-edit'></i>
+                                                    </a>
+                                                    <button type='button' class='deleteIconBtn' onclick='openModal(".$checkArray['id'].")'>
+                                                        <i class='fa fa-trash'></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                    <div class='modal' id='deleteModal".$checkArray['id']."'>
+                                        <div class='modal-content'>
+                                            <h2>Delete the record</h2>
+                                            <p>Are you sure you want to delete this data?</p>
+                                            <div class='row justify-content-start mt-10'>
+                                                <form class='delete-form' method='POST' enctype='multipart/form-data'>
+                                                    <input type='hidden' name='type' value='delete'>
+                                                    <input type='hidden' name='table_name' value='category_table'>
+                                                    <input type='hidden' name='id' value='".$checkArray['id']."'>
+                                                    <button class='redBtn deleteBtn' type='submit'>
+                                                        Delete
+                                                    </button>
+                                                    
+                                                    <button class='cancel-btn' onclick='closeModal(".$checkArray['id'].")'>
+                                                        Cancel
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>";
 
                                     }
+
+                                }
+                                else{
+
+                                    echo "<tr>
+                                            <td colspan='7' style='text-align:center;'>
+                                                Data not found
+                                            </td>
+                                        </tr>";
 
                                 }
                             
                             ?>
                         </tbody>
                     </table>
+                    <?php
+
+                        // Total records query
+                        $paginationQuery = "SELECT * FROM blog_table WHERE status = 0";
+                        $paginationResult = mysqli_query($conn, $paginationQuery);
+
+                        $total_records = mysqli_num_rows($paginationResult);
+
+                        $total_page = ceil($total_records / $limit);
+
+                        // Show pagination only if records are greater than limit
+                        if($total_records > $limit){
+
+                            echo '<ul class="pagination">';
+
+                            // Prev Button
+                            if($page > 1){
+
+                                echo '<li>
+                                        <a href="blog_post.php?page='.($page - 1).'">
+                                            Prev
+                                        </a>
+                                    </li>';
+                            }
+
+                            // Page Numbers
+                            for($i = 1; $i <= $total_page; $i++){
+
+                                $active = ($i == $page) ? 'active' : '';
+
+                                echo '<li class="'.$active.'">
+                                        <a href="blog_post.php?page='.$i.'">
+                                            '.$i.'
+                                        </a>
+                                    </li>';
+                            }
+
+                            // Next Button
+                            if($page < $total_page){
+
+                                echo '<li>
+                                        <a href="blog_post.php?page='.($page + 1).'">
+                                            Next
+                                        </a>
+                                    </li>';
+                            }
+
+                            echo '</ul>';
+                        }
+
+                    ?>
                 </div>
             </div>
         </div>
     </div>
     <!-- End of Main Content -->
+    <div class="message"></div>
 <?php include '../common_pages/footer.php'; ?>

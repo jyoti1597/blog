@@ -8,7 +8,7 @@
 
     //delete for all table
 
-    if($_POST['type'] == 'delete'){
+    if(isset($_POST['type']) && $_POST['type'] == 'delete'){
         $table_name = mysqli_real_escape_string($conn,$_POST['table_name']);
         $id = mysqli_real_escape_string($conn,$_POST['id']);
 
@@ -26,6 +26,41 @@
             $response['id'] = $id;
         }
     }
+
+    //approve or not approve blog
+    if(isset($_POST['form_name']) && $_POST['form_name'] == 'post_approval'){
+        $post_status = mysqli_real_escape_string($conn,$_POST['post_status']);
+        $id = mysqli_real_escape_string($conn,$_POST['id']);
+        
+
+        if($post_status == 'approve'){
+
+            $status = 1;
+            $textMessage = 'Blog post approved successfully';
+
+        }
+        else{
+
+            $status = 0;
+            $textMessage = 'Blog post unapproved successfully';
+
+        }
+
+        $approvelQuery = "UPDATE blog_table SET post_status = '$status' WHERE id = '$id'";
+        $approvelResult = mysqli_query($conn, $approvelQuery);
+
+       
+
+        if($approvelResult){
+            $response['status'] = 'success';
+            $response['message'] = $textMessage;
+        }
+        else{
+            $response['status'] = 'error';
+            $response['message'] = 'Something went wrong !!';
+        }
+    }
+
 
     //add category page
     if(isset($_POST['form_name']) && $_POST['form_name'] == 'add-category'){

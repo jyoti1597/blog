@@ -16,7 +16,7 @@
 .mt-10{
   margin-top: 10px;
 }
-a.editBtn , button.deleteIconBtn{
+a.editBtn , button.deleteIconBtn, .approveBtn, .notApproveBtn{
   padding: 7px;
   color: #fff;
   text-decoration: none;
@@ -32,11 +32,24 @@ a.editBtn , button.deleteIconBtn{
 a.editBtn{
   background: #3389ff;
 }
+.approveBtn{
+  background: rgb(5, 212, 5);
+}
+.notApproveBtn {
+  background: #FFCD3C;
+}
 .deleteIconBtn{
   background: #bc3535;
 }
-a.editBtn:hover , button.deleteIconBtn:hover{
+a.editBtn:hover , button.deleteIconBtn:hover,.approveBtn:hover, .notApproveBtn:hover{
   opacity: 0.6;
+}
+.message {
+  padding: 10px 10px;
+  position: absolute;
+  right: 0;
+  transform: translate(-12px, -54px);
+  border-radius: 3px;
 }
 /*================== sidebar================ */
 .sidebar {
@@ -358,4 +371,25 @@ button.submitBtn:hover {
 .redBtn:hover {
   background: #cf5757;
   opacity: 0.8;
+}
+
+/*================== pagination ================= */
+.pagination{
+  display:flex;
+  gap:10px;
+  list-style:none;
+  margin-top:20px;
+}
+
+.pagination li a{
+  padding:8px 15px;
+  background:#eee;
+  text-decoration:none;
+  border-radius:5px;
+  color:#000;
+}
+
+.pagination li.active a{
+  background:#007bff;
+  color:#fff;
 }

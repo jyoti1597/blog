@@ -1,5 +1,5 @@
 
-
+//logout button show or hide
 const profileSection = document.querySelector('.profileSection');
 const logoutBtn = document.querySelector('.logoutBtn');
 
@@ -17,6 +17,7 @@ if (profileSection && logoutBtn) {
 
 }
 
+// sidebar show and hide in mobile view
 const toggleBtn = document.querySelector('.toggle');
 const sidebar = document.querySelector('.sidebar');
 const closeBtn = document.querySelector('.closeBtn');
@@ -59,26 +60,34 @@ $(document).ready(function () {
             contentType:false,
             success: function (response) {
                 if (response.status == 'success') {
-
+                    $('.message').text(response.message).css('background', '#b5fbb4').css('color','#05d405').fadeIn();
                     setTimeout(function () {
+                        $('.message').fadeOut();
                         location.reload();
-                        $('#message').text(response.message);
                     }, 3000);
 
                 } else {
 
-                    $('#message').text(response.message);
+                    $('.message').text(response.message).css('background', '#fbb4b4').css('color','red').fadeIn();
+                    setTimeout(function () {
+                        $('.message').fadeOut();
+                        location.reload();
+                    }, 3000);
                 }
             },
             error: function () {
 
-                $('#message').text('Something went wrong');
+                $('.message').text('Something went wrong').css('background', '#fbb4b4').css('color','red').fadeIn();
+                setTimeout(function () {
+                    $('.message').fadeOut();
+                    location.reload();
+                }, 3000);
             }
         });
     });
 
 
-//delete form 
+    //delete form 
     $('.delete-form').submit(function(e){
        e.preventDefault();
        var formData = new FormData(this);
@@ -90,19 +99,48 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.status == 'success') {
 
+                     $('.message').text(response.message).css('background', '#b5fbb4').css('color','#05d405').fadeIn();
                     setTimeout(function () {
+                        $('.message').fadeOut();
                         location.reload();
-                        $('#message').text(response.message);
                     }, 3000);
 
                     closeModal(response.id);
 
                 } else {
-
+                    $('.message').text(response.message).css('background', '#fbb4b4').css('color','red').fadeIn();
                     setTimeout(function () {
+                        $('.message').fadeOut();
                         location.reload();
-                        $('#message').text(response.message);
                     }, 3000);
+                }
+            },
+        });
+    });
+    //post approval form 
+    $('.approval-form').submit(function(e){
+       e.preventDefault();
+       var formData = new FormData(this);
+       $.ajax({
+            data: formData,
+            type: 'POST',
+            url: '../db/insert-data.php',
+            dataType:'json',
+            success: function (response) {
+                if (response.status == 'success') {
+                    $('.message').text(response.message).css('background', '#b5fbb4').css('color','#05d405').fadeIn();
+                    setTimeout(function () {
+                        $('.message').fadeOut();
+                        location.reload();
+                    }, 4000);
+
+
+                } else {
+                    $('.message').text(response.message).css('background', '#fbb4b4').css('color','red').fadeIn();
+                    setTimeout(function () {
+                        $('.message').fadeOut();
+                        location.reload();
+                    }, 4000);
                 }
             },
         });

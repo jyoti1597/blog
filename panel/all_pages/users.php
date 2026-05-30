@@ -41,13 +41,6 @@
                 <!-- table header -->
                 <div class="tableHeader">
                     <h2>Users List</h2>
-
-                    <div class="searchBox">
-                        <input type="text" placeholder="Search...">
-                        <button>
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </div>
                 </div>
                 <!-- table content -->
                 <div class="tableContainer">
