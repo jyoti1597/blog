@@ -9,16 +9,16 @@
             </div>
             <!--form section -->
             <div class="formSection">
-                <form id="common-form-method" method="POST" enctype="multipart/form-data">
+                <form class="common-form-method" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="inputGroup">
                             <label for="categoryId">Category</label>
-                            <input type="hidden" name="form_name" value="blog_post">
+                            <input type="hidden" name="form_name" value="blog-post">
                             <input type="hidden" name="userId" value="<?php echo "".$_SESSION['userId']."";?>">
                             <select id="categoryId" name="categoryId" required>
                                 <option value="">Select category</option>
                                 <?php
-                                    $checkQuery = "SELECT * FROM category_table";
+                                    $checkQuery = "SELECT * FROM category_table WHERE status = 0";
                                     $checkResult = mysqli_query($conn, $checkQuery);
 
                                     $count = 0;
@@ -42,14 +42,14 @@
                             <label for="title">Title</label>
                             <input type="text" id="title" name="title" placeholder="Enter blog title" required>
                         </div>
-                        <div class="inputGroup">
+                        <!-- <div class="inputGroup">
                             <label for="status">Status</label>
                             <select id="status" name="status" required>
                                 <option value="">Select status</option>
                                 <option value="1">Active</option>
                                 <option value="2">Inactive</option>
                             </select>
-                        </div>
+                        </div> -->
                         <div class ="inputGroup">
                             <label for="image">Image </label>
                             <input type="file" name="image" id="image" accept="image/*" required>
@@ -123,29 +123,31 @@
                                         $count++;
 
                                         echo"<tr>
-                                            <td>".$checkArray['id']."</td>
-                                            <td>".$checkArray['title']."</td>
+                                            <td>".$count."</td>
+                                            <td>".substr($checkArray['title'], 0, 20) ."...</td>
                                             <td>".$categoryArray['category_name']."</td>
                                             <td>".$userArray['name']."</td>
                                             <td>".date('d M Y',strtotime($checkArray['create_date']))."</td>
-                                            <td>".$checkArray['description']."</td>
+                                            <td>".substr($checkArray['description'], 0, 20) ."...</td>
                                             <td>
-                                                <div class='row'>
-                                                    <form class='approval-form' method='POST' enctype='multipart/form-data'>
+                                                <div class='row'>";
+                                                    if($_SESSION['genre'] == 'admin'){
+                                                    echo"<form class='approval-form' method='POST' enctype='multipart/form-data'>
                                                         <input type='hidden' name='form_name' value='post_approval'>
                                                         <input type='hidden' name='id' value='".$checkArray['id']."'>";
-                                                if($checkArray['post_status'] == 1){
-                                                    
+                                                        if($checkArray['post_status'] == 1){
+                                                            
 
-                                                    echo"<input type='hidden' name='post_status' value='not_approve'>
-                                                    <button type='submit' class='notApproveBtn'><i class='fa fa-eye-slash'></i></button>";
-                                                }
-                                                else{
-                                                     echo"<input type='hidden' name='post_status' value='approve'>
-                                                        <button type='submit' class='approveBtn'><i class='fa fa-eye'></i></button>";
-                                                }
-                                               echo"</form>
-                                                    <a class='editBtn' herf='edit_blog_post.php?id=".$checkArray['id']."'>
+                                                            echo"<input type='hidden' name='post_status' value='not_approve'>
+                                                            <button type='submit' class='notApproveBtn'><i class='fa fa-eye-slash'></i></button>";
+                                                        }
+                                                        else{
+                                                            echo"<input type='hidden' name='post_status' value='approve'>
+                                                                <button type='submit' class='approveBtn'><i class='fa fa-eye'></i></button>";
+                                                        }
+                                               echo"</form>";
+                                                    }
+                                                    echo"<a class='editBtn' href='edit_blog_post.php?id=".$checkArray['id']."'>
                                                         <i class='fa fa-edit'></i>
                                                     </a>
                                                     <button type='button' class='deleteIconBtn' onclick='openModal(".$checkArray['id'].")'>
@@ -162,7 +164,7 @@
                                             <div class='row justify-content-start mt-10'>
                                                 <form class='delete-form' method='POST' enctype='multipart/form-data'>
                                                     <input type='hidden' name='type' value='delete'>
-                                                    <input type='hidden' name='table_name' value='category_table'>
+                                                    <input type='hidden' name='table_name' value='blog_table'>
                                                     <input type='hidden' name='id' value='".$checkArray['id']."'>
                                                     <button class='redBtn deleteBtn' type='submit'>
                                                         Delete

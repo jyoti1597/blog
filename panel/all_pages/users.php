@@ -9,10 +9,10 @@
             </div>
             <!--form section -->
             <div class="formSection">
-                <form id="common-form-method" method="POST" enctype="multipart/form-data">
+                <form class="common-form-method" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="inputGroup">
-                            <input type="hidden" name="form_name" value="user">
+                            <input type="hidden" name="form_name" value="add-user">
                             <label for="username">Name</label>
                             <input type="text" id="username" name="username" placeholder="Enter your name" required>
                         </div>
@@ -48,6 +48,7 @@
                         <thead>
                             <tr>
                                 <th>S.No.</th>
+                                <th>Image</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Date Created</th>
@@ -70,13 +71,46 @@
                                         $count++;
 
                                         echo"<tr>
-                                            <td>".$checkArray['id']."</td>
+                                            <td>".$count."</td>
+                                            <td>
+                                                <img src='../assets/images/".$checkArray['image']."' alt='user image' class='tableImage'>
+                                            </td>
                                             <td>".$checkArray['name']."</td>
                                             <td>".$checkArray['email']."</td>
                                             <td>".date('d M Y',strtotime($checkArray['create_date']))."</td>
-                                            <td>Active</td>
-                                        </tr>";
+                                            <td>
+                                                <div class='row justify-content-center'>
 
+                                                    <a class='editBtn' href='edit_user.php?id=".$checkArray['id']."'>
+                                                        <i class='fa fa-edit'></i>
+                                                    </a>
+
+                                                    <button type='button'  class='deleteIconBtn' onclick='openModal(".$checkArray['id'].")'>
+                                                        <i class='fa fa-trash'></i>
+                                                    </button>
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <div class='modal' id='deleteModal".$checkArray['id']."'>
+                                        <div class='modal-content'>
+                                            <h2>Delete the record</h2>
+                                            <p>Are you sure you want to delete this data?</p>
+                                            <div class='row justify-content-start mt-10'>
+                                                <form class='delete-form' method='POST' enctype='multipart/form-data'>
+                                                    <input type='hidden' name='type' value='delete'>
+                                                    <input type='hidden' name='table_name' value='user_table'>
+                                                    <input type='hidden' name='id' value='".$checkArray['id']."'>
+                                                    <button class='redBtn deleteBtn' type='submit'>
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                                <button class='cancel-btn' onclick='closeModal(".$checkArray['id'].")'>
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>";
                                     }
 
                                 }
@@ -89,4 +123,5 @@
         </div>
     </div>
     <!-- End of Main Content -->
+    <div class="message"></div>
 <?php include '../common_pages/footer.php'; ?>

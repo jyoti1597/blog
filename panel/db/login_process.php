@@ -28,6 +28,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         session_start();
         $_SESSION['username'] = $fetch_data['name'];
         $_SESSION['userId'] = $fetch_data['id'];
+        $_SESSION['genre'] = $fetch_data['genre'];
     
     
     } else {

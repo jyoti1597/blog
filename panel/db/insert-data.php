@@ -3,6 +3,7 @@
     header('Content-Type: application/json');
 
     include 'db_connections.php';
+   
 
     $result = array();
 
@@ -27,8 +28,25 @@
         }
     }
 
+    //delete blog post image
+    if(isset($_POST['type']) && $_POST['type'] == 'delete-image'){
+        $id = mysqli_real_escape_string($conn,$_POST['id']);
+
+        $deleteQuery = "UPDATE blog_table SET image = '' WHERE id = '$id'";
+        $deleteResult = mysqli_query($conn, $deleteQuery);
+
+        if($deleteResult){
+            $response['status'] = 'success';
+            $response['message'] = 'Image Deleted Successfully';
+        }
+        else{
+            $response['status'] = 'error';
+            $response['message'] = 'Something went wrong !!';
+        }
+    }
+
     //approve or not approve blog
-    if(isset($_POST['form_name']) && $_POST['form_name'] == 'post_approval'){
+    if(isset($_POST['form_name']) && $_POST['form_name'] == 'post-approval'){
         $post_status = mysqli_real_escape_string($conn,$_POST['post_status']);
         $id = mysqli_real_escape_string($conn,$_POST['id']);
         
@@ -98,7 +116,7 @@
     }
 
     // user page
-    if(isset($_POST['form_name']) && $_POST['form_name'] == 'user'){
+    if(isset($_POST['form_name']) && $_POST['form_name'] == 'add-user'){
         $userName = mysqli_real_escape_string($conn,$_POST['username']);
         $email = mysqli_real_escape_string($conn,$_POST['email']);
         $password = mysqli_real_escape_string($conn,$_POST['password']);
@@ -167,38 +185,39 @@
     }
 
     // blog page
-    if(isset($_POST['form_name']) && $_POST['form_name'] == 'blog_post'){
-        $categoryId = mysqli_real_escape_string($conn,$_POST['categoryId']);
-        $title = mysqli_real_escape_string($conn,$_POST['title']);
-        $status = mysqli_real_escape_string($conn,$_POST['status']);
-        $description = mysqli_real_escape_string($conn,$_POST['description']);
-        $userId = mysqli_real_escape_string($conn,$_POST['userId']);
-        // Check image selected
+    if(isset($_POST['form_name']) && $_POST['form_name'] == 'blog-post'){
 
+        $categoryId = mysqli_real_escape_string($conn, $_POST['categoryId']);
+        $title = mysqli_real_escape_string($conn, $_POST['title']);
+        // $status = mysqli_real_escape_string($conn, $_POST['status']);
+        $description = mysqli_real_escape_string($conn, $_POST['description']);
+        $userId = mysqli_real_escape_string($conn, $_POST['userId']);
+
+        // File data
         $imageName = $_FILES['image']['name'];
         $tmpName   = $_FILES['image']['tmp_name'];
         $fileSize  = $_FILES['image']['size'];
-        $fileType = $_FILES['image']['type'];
+        $fileType  = $_FILES['image']['type'];
+        $fileError = $_FILES['image']['error'];
 
-        // 5MB
+        // Max size 5MB
         $maxSize = 5 * 1024 * 1024;
 
-        // Extension
+        // Get extension
+        $fileExt = explode('.', $imageName);
+        $fileActualExt = strtolower(end($fileExt));
 
-        $fileExt = explode('.', $fileName);
-        $fileActualExt = strolower(end($fileExt));
-        //$extension = strtolower(pathinfo($imageName, PATHINFO_EXTENSION));
-
-        // Allowed types
+        // Allowed extensions
         $allowed = ['jpg', 'jpeg', 'png'];
 
         // Check extension
-        if(in_array($fileActualExt, $allowed)){
+        if(!in_array($fileActualExt, $allowed)){
 
             $response['status'] = 'error';
             $response['message'] = 'Only JPG, JPEG and PNG allowed';
 
         }
+
         // Check size
         elseif($fileSize > $maxSize){
 
@@ -206,17 +225,20 @@
             $response['message'] = 'Image size must be less than 5 MB';
 
         }
+
         else{
-            
+
             if($fileError == 0){
+
                 // New image name
                 $newName = time() . "_" . $imageName;
 
                 // Upload image
-                move_uploaded_file($fileActualExt, "../assets/images/blog/" . $newName);
+                move_uploaded_file($tmpName, "../assets/images/blog/" . $newName);
 
                 // Insert query
-                $insertQuery = "INSERT INTO blog_table(category_id, title, status, image, description, userId) VALUES('$categoryId','$title','$status','$newName','$description', $userId)";
+                $insertQuery = "INSERT INTO blog_table(category_id, title, image, description, userId) 
+                VALUES('$categoryId','$title','$newName','$description','$userId')";
 
                 $insertResult = mysqli_query($conn, $insertQuery);
 
@@ -229,18 +251,220 @@
 
                     $response['status'] = 'error';
                     $response['message'] = 'Database Error';
+
                 }
-            }
-            else{
+
+            }else{
 
                 $response['status'] = 'error';
                 $response['message'] = 'There was an error uploading your file!';
+
             }
+
         }
+
 
     }
     
-    
+    // blog page
+    if(isset($_POST['form_name']) && $_POST['form_name'] == 'edit-blog-post'){
+
+        $id = mysqli_real_escape_string($conn, $_POST['id']);
+        $categoryId = mysqli_real_escape_string($conn, $_POST['categoryId']);
+        $title = mysqli_real_escape_string($conn, $_POST['title']);
+        $description = mysqli_real_escape_string($conn, $_POST['description']);
+        $userId = mysqli_real_escape_string($conn, $_POST['userId']);
+         $currentDate = date('Y-m-d H:i:s');
+        
+
+        $updateQuery = "UPDATE blog_table SET category_id='$categoryId', title='$title', description='$description', userId='$userId', update_date ='$currentDate' WHERE id='$id'";
+
+        $updateResult = mysqli_query($conn, $updateQuery);
+
+        if($updateResult){
+
+            $response['status'] = 'success';
+            $response['message'] = 'Updated Successfully';
+
+        }else{
+
+            $response['status'] = 'error';
+            $response['message'] = 'Database Error';
+
+        }
+    }
+
+    // edit blog post image
+    if(isset($_POST['form_name']) && $_POST['form_name'] == 'edit-blog-image'){
+
+        $id = mysqli_real_escape_string($conn, $_POST['id']);
+
+        // File data
+        $imageName = $_FILES['image']['name'];
+        $tmpName   = $_FILES['image']['tmp_name'];
+        $fileSize  = $_FILES['image']['size'];
+        $fileType  = $_FILES['image']['type'];
+        $fileError = $_FILES['image']['error'];
+
+        // Max size 5MB
+        $maxSize = 5 * 1024 * 1024;
+
+        // Get extension
+        $fileExt = explode('.', $imageName);
+        $fileActualExt = strtolower(end($fileExt));
+
+        // Allowed extensions
+        $allowed = ['jpg', 'jpeg', 'png'];
+
+        // Check extension
+        if(!in_array($fileActualExt, $allowed)){
+
+            $response['status'] = 'error';
+            $response['message'] = 'Only JPG, JPEG and PNG allowed';
+
+        }
+
+        // Check size
+        elseif($fileSize > $maxSize){
+
+            $response['status'] = 'error';
+            $response['message'] = 'Image size must be less than 5 MB';
+
+        }
+
+        else{
+
+            if($fileError == 0){
+
+                // New image name
+                $newName = time() . "_" . $imageName;
+
+                // Upload image
+                move_uploaded_file($tmpName, "../assets/images/blog/" . $newName);
+
+                // Update query
+                $updateQuery = "UPDATE blog_table SET image='$newName' WHERE id = '$id'";
+                $updateResult = mysqli_query($conn, $updateQuery);
+
+                if($updateResult){
+
+                    $response['status'] = 'success';
+                    $response['message'] = 'Image updated Successfully';
+
+                }else{
+
+                    $response['status'] = 'error';
+                    $response['message'] = 'Database Error';
+
+                }
+
+            }else{
+
+                $response['status'] = 'error';
+                $response['message'] = 'There was an error uploading your file!';
+
+            }
+
+        }
+    }
+
+    //edit user page
+    if(isset($_POST['form_name']) && $_POST['form_name'] == 'edit-user'){
+        $id = mysqli_real_escape_string($conn,$_POST['id']);
+        $userName = mysqli_real_escape_string($conn,$_POST['username']);
+        $email = mysqli_real_escape_string($conn,$_POST['email']);
+        // $password = mysqli_real_escape_string($conn,$_POST['password']);
+         $currentDate = date('Y-m-d H:i:s');
+
+        $updateQuery = "UPDATE user_table SET name='$userName', email='$email', updated_date ='$currentDate' WHERE id='$id'";
+        $updateResult = mysqli_query($conn, $updateQuery);
+
+        if ($updateResult) {
+            $response['status'] = 'success';
+            $response['message'] = 'Updated Successfully';
+        }
+        else{
+            $response['status'] = 'error';
+            $response['message'] = 'Something went wrong !!';
+        }
+    }
+
+
+    //edit user image
+    if(isset($_POST['form_name']) && $_POST['form_name'] == 'edit-user-image'){
+
+        $id = mysqli_real_escape_string($conn,$_POST['id']);
+
+        // File data
+        $imageName = $_FILES['image']['name'];
+        $tmpName   = $_FILES['image']['tmp_name'];
+        $fileSize  = $_FILES['image']['size'];
+        $fileType  = $_FILES['image']['type'];
+        $fileError = $_FILES['image']['error'];
+
+        // Max size 5MB
+        $maxSize = 5 * 1024 * 1024;
+
+        // Get extension
+        $fileExt = explode('.', $imageName);
+        $fileActualExt = strtolower(end($fileExt));
+
+        // Allowed extensions
+        $allowed = ['jpg', 'jpeg', 'png'];
+
+        // Check extension
+        if(!in_array($fileActualExt, $allowed)){
+
+            $response['status'] = 'error';
+            $response['message'] = 'Only JPG, JPEG and PNG allowed';
+
+        }
+
+        // Check size
+        elseif($fileSize > $maxSize){
+
+            $response['status'] = 'error';
+            $response['message'] = 'Image size must be less than 5 MB';
+
+        }
+
+        else{
+
+            if($fileError == 0){
+
+                // New image name
+                $newName = time() . "_" . $imageName;
+
+                // Upload image
+                move_uploaded_file($tmpName, "../assets/images/user/" . $newName);
+
+                // Update query
+                $updateQuery = "UPDATE user_table SET image='$newName' WHERE id='$id'";
+                $updateResult = mysqli_query($conn, $updateQuery);
+
+                if($updateResult){
+
+                    $response['status'] = 'success';
+                    $response['message'] = 'Image updated Successfully';
+
+                }else{
+
+                    $response['status'] = 'error';
+                    $response['message'] = 'Database Error';
+
+                }
+
+            }else{
+
+                $response['status'] = 'error';
+                $response['message'] = 'There was an error uploading your file!';
+
+            }
+
+        }
+    }
+
+
     echo json_encode($response);
 
 ?>

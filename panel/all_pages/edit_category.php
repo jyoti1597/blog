@@ -17,7 +17,7 @@
             </div>
             <!--form section -->
             <div class="formSection">
-                <form id="common-form-method" method="POST">
+                <form class="common-form-method" method="POST">
                     <div class="row">
                         <div class="inputGroup">
                             <input type="hidden" name="form_name" value="edit-category">

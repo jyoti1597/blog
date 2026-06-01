@@ -4,6 +4,9 @@
   box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
+.d-flex {
+  display: flex;
+}
 .justify-content-center {
   justify-content: center;
 }
@@ -15,6 +18,14 @@
 }
 .mt-10{
   margin-top: 10px;
+}
+.col-8{
+  flex: 0 0 66.6667%;
+  max-width: 66.6667%;
+}
+.col-4{
+  flex: 0 0 33.3333%;
+  max-width: 33.3333%;
 }
 a.editBtn , button.deleteIconBtn, .approveBtn, .notApproveBtn{
   padding: 7px;
@@ -51,6 +62,9 @@ a.editBtn:hover , button.deleteIconBtn:hover,.approveBtn:hover, .notApproveBtn:h
   transform: translate(-12px, -54px);
   border-radius: 3px;
 }
+/* .ck-editor__editable_inline{
+            min-height: 300px;
+        } */
 /*================== sidebar================ */
 .sidebar {
   width: 250px;
@@ -235,10 +249,11 @@ a.closeBtn {
   flex: 1;
   display: flex;
   flex-direction: column;
+  margin-top: 15px;
 }
 .inputGroup label {
   font-size: 16px;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 .inputGroup input,
 .inputGroup select, .inputGroup textarea {

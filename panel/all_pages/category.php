@@ -10,7 +10,7 @@
             </div>
             <!--form section -->
             <div class="formSection">
-                <form id="common-form-method" method="POST">
+                <form class="common-form-method" method="POST">
                     <div class="row">
                         <div class="inputGroup">
                             <input type="hidden" name="form_name" value="add-category">
@@ -66,12 +66,15 @@
 
                         $checkResult = mysqli_query($conn, $checkQuery);
 
+                        $count= 0;
+
                         if(mysqli_num_rows($checkResult) > 0){
                             while($checkArray = mysqli_fetch_array($checkResult)){
+                                $count++;
 
                                 echo "<tr>
 
-                                        <td>".$checkArray['id']."</td>
+                                        <td>".$count."</td>
 
                                         <td>".$checkArray['category_name']."</td>
 

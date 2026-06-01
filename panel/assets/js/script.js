@@ -34,6 +34,11 @@ if (toggleBtn && sidebar && closeBtn) {
     });
 }
 
+// Convert textarea into rich text editor
+var easyMDE = new EasyMDE({ 
+    element: document.getElementById('description') , 
+    status: false  // This hides the entire status bar
+});
 //modal delete button function
 function openModal(id){
     document.getElementById('deleteModal'+id).style.display = 'flex';
@@ -45,7 +50,7 @@ function closeModal(id){
 
 $(document).ready(function () {
     //common form submit for all form
-    $('#common-form-method').submit(function (e) {
+    $('.common-form-method').submit(function (e) {
         e.preventDefault();
 
         var formData = new FormData(this);
