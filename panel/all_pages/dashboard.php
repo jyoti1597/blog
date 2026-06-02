@@ -71,7 +71,7 @@
                         <tbody>
                             <?php
                             
-                                $blogQuery = "SELECT * FROM blog_table WHERE create_date = CURDATE()";
+                                $blogQuery = "SELECT * FROM blog_table WHERE create_date = CURDATE() AND status = 0 ORDER BY id DESC";
                                 $blogResult = mysqli_query($conn, $blogQuery);
 
                                 $count = 0;
@@ -80,28 +80,29 @@
 
                                     while($blogArray = mysqli_fetch_array($blogResult)){
                                         
+                                        $count++;
+
                                         $categoryQuery = "SELECT * FROM category_table WHERE id = '".$blogArray['category_id']."'";
                                         $categoryResult = mysqli_query($conn, $categoryQuery);
                                         $categoryArray = mysqli_fetch_array($categoryResult);
 
-                                        $count++;
-
+                                        
                                         echo"<tr>
-                                            <td>".$blogArray['id']."</td>
-                                            <td>".$blogArray['title']."</td>
-                                            <td>".$categoryArray['category_name']."</td>
-                                            <td>".$blogArray['name']."</td>
-                                            <td>".date('d M Y',strtotime($checkArray['create_date']))."</td>
-                                            <td>".$blogArray['description']."</td>
-                                            <td>";
-                                                if($blogArray['status'] == 1){
-                                                    echo"<button>Approve</button>";
-                                                }
-                                                else{
-                                                     echo"<button>No Approve</button>";
-                                                }
-                                        echo"</td>
-                                        </tr>";
+                                                <td>".$blogArray['id']."</td>
+                                                <td>".$blogArray['title']."</td>
+                                                <td>".$categoryArray['category_name']."</td>
+                                                <td>".$blogArray['name']."</td>
+                                                <td>".date('d M Y',strtotime($blogArray['create_date']))."</td>
+                                                <td>".$blogArray['description']."</td>
+                                                <td>";
+                                                    if($blogArray['status'] == 1){
+                                                        echo"<button>Approve</button>";
+                                                    }
+                                                    else{
+                                                        echo"<button>No Approve</button>";
+                                                    }
+                                            echo"</td>
+                                            </tr>";
 
                                     }
 

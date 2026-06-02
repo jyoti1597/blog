@@ -73,7 +73,7 @@
                                         echo"<tr>
                                             <td>".$count."</td>
                                             <td>
-                                                <img src='../assets/images/".$checkArray['image']."' alt='user image' class='tableImage'>
+                                                <img src='../assets/images/user/".$checkArray['image']."' alt='user image' class='tableImage'>
                                             </td>
                                             <td>".$checkArray['name']."</td>
                                             <td>".$checkArray['email']."</td>
