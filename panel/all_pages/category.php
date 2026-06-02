@@ -9,20 +9,20 @@
                 <h2>Add Category</h2>
             </div>
             <!--form section -->
-            <div class="formSection">
-                <form class="common-form-method" method="POST">
-                    <div class="row">
+            <form class="common-form-method" method="POST">
+                <div class="row">
+                    <div class="col-6">
                         <div class="inputGroup">
                             <input type="hidden" name="form_name" value="add-category">
                             <label for="category">Category</label>
                             <input type="text" id="category" name="category_name" placeholder="Enter category name" required>
                         </div>
-                        <div class="inputGroup justify-content-end mt-24">
-                            <button type="submit" class="submitBtn" name="submit" value="submit">Submit</button>
-                        </div>
                     </div>
-                </form>    
-            </div>
+                    <div class="col-6">
+                        <button type="submit" class="submitBtn mt-24" name="submit" value="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
         </div>
         <div class="whiteCard">
             <!--table section -->
@@ -81,8 +81,7 @@
                                         <td>".date('d M Y',strtotime($checkArray['create_date']))."</td>
 
                                         <td>
-                                            <div class='row justify-content-center'>
-
+                                            <div class='justify-content-center d-flex gap-10'>
                                                 <a class='editBtn' href='edit_category.php?id=".$checkArray['id']."'>
                                                     <i class='fa fa-edit'></i>
                                                 </a>

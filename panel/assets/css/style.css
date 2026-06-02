@@ -19,13 +19,42 @@
 .mt-10{
   margin-top: 10px;
 }
+.mt-24{
+  margin-top: 24px;
+}
+.gap-10{
+  gap: 10px;
+}
+[class*="col-"] {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
 .col-8{
-  flex: 0 0 66.6667%;
-  max-width: 66.6667%;
+      padding-top: .75rem;
+    padding-bottom: .75rem;
+  -webkit-box-flex: 0;
+    -ms-flex: 0 0 66.666667%;
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
 }
 .col-4{
-  flex: 0 0 33.3333%;
-  max-width: 33.3333%;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 33.333333%;
+  flex: 0 0 33.333333%;
+  max-width: 33.333333%;
+    padding-top: .75rem;
+  padding-bottom: .75rem;
+}
+.col-6{
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+  max-width: 50%;
+    padding-top: .75rem;
+  padding-bottom: .75rem;
 }
 a.editBtn , button.deleteIconBtn, .approveBtn, .notApproveBtn{
   padding: 7px;
@@ -240,16 +269,30 @@ a.closeBtn {
 .cardHeader h2 {
   font: italic bold 18px/1.5 Arial, sans-serif;
 }
-.row {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 10px;
-}
-.inputGroup {
-  flex: 1;
+
+.container{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  margin-top: 15px;
+}
+.row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+
+}
+
+.inputGroup {
+  /* flex: 1; */
+  display: flex;
+  flex-direction: column;
+  /* margin-top: 15px; */
 }
 .inputGroup label {
   font-size: 16px;

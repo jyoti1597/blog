@@ -31,8 +31,9 @@
     //delete blog post image
     if(isset($_POST['type']) && $_POST['type'] == 'delete-image'){
         $id = mysqli_real_escape_string($conn,$_POST['id']);
+        $table_name = mysqli_real_escape_string($conn,$_POST['table_name']);
 
-        $deleteQuery = "UPDATE blog_table SET image = '' WHERE id = '$id'";
+        $deleteQuery = "UPDATE $table_name SET image = '' WHERE id = '$id'";
         $deleteResult = mysqli_query($conn, $deleteQuery);
 
         if($deleteResult){
@@ -464,7 +465,82 @@
         }
     }
 
+    //edit profile page
+   if(isset($_POST['form_name']) && $_POST['form_name'] == 'edit-profile'){
 
+    $id               = mysqli_real_escape_string($conn, $_POST['id']);
+    $userName         = mysqli_real_escape_string($conn, $_POST['username']);
+    $email            = mysqli_real_escape_string($conn, $_POST['email']);
+    $currentPassword  = mysqli_real_escape_string($conn, $_POST['current_password']);
+    $confirmPassword  = mysqli_real_escape_string($conn, $_POST['confirm_password']);
+    $currentDate      = date('Y-m-d H:i:s');
+
+    // Get current user password from database
+    $checkQuery = "SELECT password FROM user_table WHERE id='$id'";
+    $checkResult = mysqli_query($conn, $checkQuery);
+
+    if(mysqli_num_rows($checkResult) > 0){
+
+        $userData = mysqli_fetch_array($checkResult);
+        $dbPassword = $userData['password'];
+
+        // Check entered current password with database password
+        if($currentPassword != $dbPassword){
+
+            $response['status'] = 'error';
+            $response['message'] = 'Current password is incorrect !!';
+
+        }
+        else{
+
+            // Check password length
+            if(strlen($currentPassword) < 8 || strlen($confirmPassword) < 8){
+
+                $response['status'] = 'error';
+                $response['message'] = 'Password must be at least 8 characters long !!';
+
+            }
+            // Check current and confirm password match
+            elseif($currentPassword != $confirmPassword){
+
+                $response['status'] = 'error';
+                $response['message'] = 'Current password and confirm password do not match !!';
+
+            }
+
+            else{
+
+                // Update profile
+                $updateQuery = "UPDATE user_table  SET name='$userName', email='$email',  updated_date='$currentDate'  WHERE id='$id'";
+
+                $updateResult = mysqli_query($conn, $updateQuery);
+
+                if($updateResult){
+
+                    $response['status'] = 'success';
+                    $response['message'] = 'Profile Updated Successfully';
+
+                }
+                else{
+
+                    $response['status'] = 'error';
+                    $response['message'] = 'Something went wrong !!';
+
+                }
+
+            }
+
+        }
+
+    }
+    else{
+
+        $response['status'] = 'error';
+        $response['message'] = 'User not found !!';
+
+    }
+
+}
     echo json_encode($response);
 
 ?>

@@ -8,9 +8,9 @@
                 <h2>Add Blog Post</h2>
             </div>
             <!--form section -->
-            <div class="formSection">
-                <form class="common-form-method" method="POST" enctype="multipart/form-data">
-                    <div class="row">
+            <form class="common-form-method" method="POST" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-4">
                         <div class="inputGroup">
                             <label for="categoryId">Category</label>
                             <input type="hidden" name="form_name" value="blog-post">
@@ -37,36 +37,40 @@
                                 
                                 ?>
                             </select>
-                        </div>    
+                        </div>
+                    </div>
+                    <div class="col-4">
                         <div class="inputGroup">
                             <label for="title">Title</label>
                             <input type="text" id="title" name="title" placeholder="Enter blog title" required>
                         </div>
-                        <!-- <div class="inputGroup">
-                            <label for="status">Status</label>
-                            <select id="status" name="status" required>
-                                <option value="">Select status</option>
-                                <option value="1">Active</option>
-                                <option value="2">Inactive</option>
-                            </select>
-                        </div> -->
+                    </div>
+                    <!-- <div class="inputGroup">
+                        <label for="status">Status</label>
+                        <select id="status" name="status" required>
+                            <option value="">Select status</option>
+                            <option value="1">Active</option>
+                            <option value="2">Inactive</option>
+                        </select>
+                    </div> -->
+                    <div class="col-4">
                         <div class ="inputGroup">
                             <label for="image">Image </label>
                             <input type="file" name="image" id="image" accept="image/*" required>
                         </div>
                     </div>
-
-                    <div class="row">
+                    <div class="col-12">
                         <div class="inputGroup">
                             <label for="description">Description</label>
                             <textarea id="description" name="description" placeholder="Enter blog description"></textarea>
                         </div>
                     </div>
-                    <div class="row justify-content-center">
+                    
+                    <div class="col-12 mt-24 d-flex justify-content-center">
                         <button type="submit" class="submitBtn" name="submit" value="submit">Submit</button>
                     </div>
-                </form>    
-            </div>
+                </div>
+            </form> 
         </div>
         <div class="whiteCard">
             <!--table section -->
@@ -130,7 +134,7 @@
                                             <td>".date('d M Y',strtotime($checkArray['create_date']))."</td>
                                             <td>".substr($checkArray['description'], 0, 20) ."...</td>
                                             <td>
-                                                <div class='row'>";
+                                                <div class='justify-content-center d-flex gap-10'>";
                                                     if($_SESSION['genre'] == 'admin'){
                                                     echo"<form class='approval-form' method='POST' enctype='multipart/form-data'>
                                                         <input type='hidden' name='form_name' value='post_approval'>

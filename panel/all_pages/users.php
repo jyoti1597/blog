@@ -8,32 +8,38 @@
                 <h2>Add User</h2>
             </div>
             <!--form section -->
-            <div class="formSection">
-                <form class="common-form-method" method="POST" enctype="multipart/form-data">
-                    <div class="row">
+            <form class="common-form-method" method="POST" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-6">
                         <div class="inputGroup">
                             <input type="hidden" name="form_name" value="add-user">
                             <label for="username">Name</label>
                             <input type="text" id="username" name="username" placeholder="Enter your name" required>
                         </div>
+                    </div>
+                    <div class="col-6">
                         <div class="inputGroup">
                             <label for="email">Email</label>
                             <input type="email" id="email" name="email" placeholder="Enter your email" required>
                         </div>
+                    </div>
+                    <div class="col-6">
                         <div class="inputGroup">
                             <label for="password">Password</label>
                             <input type="password" id="password" name="password" placeholder="Enter your password" required>
                         </div>
-                        <div class ="inputGroup">
+                    </div>
+                    <div class="col-6">
+                        <div class="inputGroup">
                             <label for="image">Image </label>
                             <input type="file" name="image" id="image" accept="image/*" required>
                         </div>
                     </div>
-                    <div class="row justify-content-center">
-                        <button type="submit" class="submitBtn" name="submit" value="submit">Submit</button>
-                    </div>
-                </form>    
-            </div>
+                </div>
+                <div class="col-12 mt-24 d-flex justify-content-center">
+                    <button type="submit" class="submitBtn" name="submit" value="submit">Submit</button>
+                </div>
+            </form>
         </div>
         <div class="whiteCard">
             <!--table section -->
@@ -59,7 +65,7 @@
                         <tbody>
                             <?php
                             
-                                $checkQuery = "SELECT * FROM user_table ";
+                                $checkQuery = "SELECT * FROM user_table WHERE genre != 'admin' AND id != ".$_SESSION['userId']." AND status = 0 ORDER BY id DESC";
                                 $checkResult = mysqli_query($conn, $checkQuery);
 
                                 $count = 0;
@@ -79,7 +85,7 @@
                                             <td>".$checkArray['email']."</td>
                                             <td>".date('d M Y',strtotime($checkArray['create_date']))."</td>
                                             <td>
-                                                <div class='row justify-content-center'>
+                                                <div class='justify-content-center d-flex gap-10'>
 
                                                     <a class='editBtn' href='edit_user.php?id=".$checkArray['id']."'>
                                                         <i class='fa fa-edit'></i>
@@ -92,25 +98,25 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                    <div class='modal' id='deleteModal".$checkArray['id']."'>
-                                        <div class='modal-content'>
-                                            <h2>Delete the record</h2>
-                                            <p>Are you sure you want to delete this data?</p>
-                                            <div class='row justify-content-start mt-10'>
-                                                <form class='delete-form' method='POST' enctype='multipart/form-data'>
-                                                    <input type='hidden' name='type' value='delete'>
-                                                    <input type='hidden' name='table_name' value='user_table'>
-                                                    <input type='hidden' name='id' value='".$checkArray['id']."'>
-                                                    <button class='redBtn deleteBtn' type='submit'>
-                                                        Delete
+                                        <div class='modal' id='deleteModal".$checkArray['id']."'>
+                                            <div class='modal-content'>
+                                                <h2>Delete the record</h2>
+                                                <p>Are you sure you want to delete this data?</p>
+                                                <div class='row justify-content-start mt-10'>
+                                                    <form class='delete-form' method='POST' enctype='multipart/form-data'>
+                                                        <input type='hidden' name='type' value='delete'>
+                                                        <input type='hidden' name='table_name' value='user_table'>
+                                                        <input type='hidden' name='id' value='".$checkArray['id']."'>
+                                                        <button class='redBtn deleteBtn' type='submit'>
+                                                            Delete
+                                                        </button>
+                                                    </form>
+                                                    <button class='cancel-btn' onclick='closeModal(".$checkArray['id'].")'>
+                                                        Cancel
                                                     </button>
-                                                </form>
-                                                <button class='cancel-btn' onclick='closeModal(".$checkArray['id'].")'>
-                                                    Cancel
-                                                </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>";
+                                        </div>";
                                     }
 
                                 }

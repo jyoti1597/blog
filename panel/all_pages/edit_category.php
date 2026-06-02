@@ -16,21 +16,21 @@
                 <h2>Edit Category</h2>
             </div>
             <!--form section -->
-            <div class="formSection">
-                <form class="common-form-method" method="POST">
-                    <div class="row">
+            <form class="common-form-method" method="POST">
+                <div class="row">
+                    <div class="col-6">
                         <div class="inputGroup">
                             <input type="hidden" name="form_name" value="edit-category">
                             <input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
                             <label for="category">Category</label>
                             <input type="text" id="category" name="category_name" placeholder="Enter category name"  value="<?php echo $data['category_name'];?>" required>
                         </div>
-                        <div class="inputGroup justify-content-end mt-24">
-                            <button type="submit" class="submitBtn" name="update" value="update">Update</button>
-                        </div>
                     </div>
-                </form>    
-            </div>
+                    <div class="col-6">
+                        <button type="submit" class="submitBtn mt-24" name="update" value="update">Update</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <!-- End of Main Content -->
