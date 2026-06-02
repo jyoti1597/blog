@@ -1,13 +1,6 @@
 <?php include '../common_pages/header.php'; ?>
 <?php include '../common_pages/sidebar.php'; ?>
-<?php
-    $id = $_SESSION['userId'];
 
-    $query = "SELECT * FROM user_table WHERE id = '$id'";
-    $result = mysqli_query($conn, $query);
-    $data = mysqli_fetch_assoc($result);
-    
-?>
     <!-- Main Content -->
     <div class="main-content">
         <div class="row justify-content-center">
@@ -17,7 +10,7 @@
                     <div class="cardHeader">
                         <h2>Profile</h2>
                     </div>
-                    <!--form section -->=
+                    <!--form section -->
                     <form class="common-form-method" method="POST" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-4">

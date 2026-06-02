@@ -22,16 +22,25 @@
                     }
                 ?>
                 <li>
+                    
                     <a href="../all_pages/profile.php">
                         <i class="fa fa-user-circle"></i> Profile
                     </a>
                 </li>
             </ul>
             <div class="logout">
-                <div class="profileSection">
-                    <img src="../assets/images/user/profile.png" alt="Profile">
-                    <span>Admin</span>
-                </div>
+                <?php
+                    $id = $_SESSION['userId'];
+
+                    $query = "SELECT * FROM user_table WHERE id = '$id'";
+                    $result = mysqli_query($conn, $query);
+                    $data = mysqli_fetch_assoc($result);
+                    echo" <div class='profileSection'>
+                        <img src='../assets/images/user/" . $data['image'] . "' alt='Profile'>
+                        <span>" . $data['name'] . "</span>
+                    </div>";     
+                ?>
+               
                 <a href="../db/logout.php" class="logoutBtn"><i class="fa fa-sign-out"></i> Logout</a>
             </div>
         </div>
