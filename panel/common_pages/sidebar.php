@@ -4,7 +4,9 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <div class="logo">
-                <img src="../assets/images/logo_image.png" alt="Logo">
+                <a href="../all_pages/dashboard.php">
+                    <img src="../assets/images/logo_image.png" alt="Logo">
+                </a>
                 <a href="#" class="closeBtn"><i class="fa fa-close"></i></a>
             </div>
             <ul>

@@ -15,6 +15,7 @@
     $blogCountResult = mysqli_query($conn, $blogCountQuery);
     $blogCount = mysqli_num_rows($blogCountResult);
 
+
 ?>
         <!-- Main Content -->
         <div class="main-content">
@@ -47,10 +48,12 @@
                     <h2>Current Blog Posts</h2>
 
                     <div class="searchBox">
-                        <input type="text" placeholder="Search...">
-                        <button>
-                            <i class="fa fa-search"></i>
-                        </button>
+                        <form method="GET" action="">
+                            <input type="text" placeholder="Search..." name="search" value="<?php if(isset($_GET['search'])){ echo $_GET['search']; }?>" required>
+                            <button class="searchBtn" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
 
@@ -60,7 +63,6 @@
                             <tr>
                                 <th>S.No.</th>
                                 <th>Title</th>
-                                <th>Category</th>
                                 <th>Author</th>
                                 <th>Date Created</th>
                                 <th>Description</th>
@@ -77,9 +79,20 @@
                                 else{
                                     $page = 1;
                                 }
+                                
                                 $offset = ($page - 1) * $limit;
-                            
-                                $blogQuery = "SELECT * FROM blog_table WHERE create_date = CURDATE() AND status = 0 ORDER BY id DESC LIMIT {$offset}, {$limit}";
+
+                                $where = "WHERE b.status = 0 AND create_date = CURDATE()";
+                                $search = $_GET["search"];
+
+                                if (!empty($search)) {
+                                    $where .= " AND (b.title LIKE '%$search%' OR c.category_name LIKE '%$search%' OR u.name LIKE '%$search%')";
+                                }
+
+                                $blogQuery = "SELECT b.*,  c.category_name, u.name as author_name FROM blog_table b LEFT JOIN category_table c ON b.category_id = c.id LEFT JOIN user_table u ON b.userId = u.id $where ORDER BY b.id DESC LIMIT {$offset}, {$limit}";
+
+
+                                echo $blogQuery;
                                 $blogResult = mysqli_query($conn, $blogQuery);
 
                                 $count = 0;
@@ -89,17 +102,12 @@
                                     while($blogArray = mysqli_fetch_array($blogResult)){
                                         
                                         $count++;
-
-                                        $categoryQuery = "SELECT * FROM category_table WHERE id = '".$blogArray['category_id']."'";
-                                        $categoryResult = mysqli_query($conn, $categoryQuery);
-                                        $categoryArray = mysqli_fetch_array($categoryResult);
-
-                                        
+                             
                                         echo"<tr>
                                                 <td>".$blogArray['id']."</td>
                                                 <td>".$blogArray['title']."</td>
-                                                <td>".$categoryArray['category_name']."</td>
-                                                <td>".$blogArray['name']."</td>
+                                                <td>".$blogArray['category_name']."</td>
+                                                <td>".$blogArray['author_name']."</td>
                                                 <td>".date('d M Y',strtotime($blogArray['create_date']))."</td>
                                                 <td>".$blogArray['description']."</td>
                                             </tr>";
