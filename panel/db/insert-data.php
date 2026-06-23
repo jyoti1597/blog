@@ -466,81 +466,67 @@
     }
 
     //edit profile page
-   if(isset($_POST['form_name']) && $_POST['form_name'] == 'edit-profile'){
+    if(isset($_POST['form_name']) && $_POST['form_name'] == 'edit-profile'){
+        $id              = mysqli_real_escape_string($conn, $_POST['id']);
+        $userName        = mysqli_real_escape_string($conn, $_POST['username']);
+        $email           = mysqli_real_escape_string($conn, $_POST['email']);
 
-    $id               = mysqli_real_escape_string($conn, $_POST['id']);
-    $userName         = mysqli_real_escape_string($conn, $_POST['username']);
-    $email            = mysqli_real_escape_string($conn, $_POST['email']);
-    $currentPassword  = mysqli_real_escape_string($conn, $_POST['current_password']);
-    $confirmPassword  = mysqli_real_escape_string($conn, $_POST['confirm_password']);
-    $currentDate      = date('Y-m-d H:i:s');
+        $currentPassword = trim($_POST['current_password']);
+        $newPassword     = trim($_POST['new_password']);
+        $confirmPassword = trim($_POST['confirm_password']);
 
-    // Get current user password from database
-    $checkQuery = "SELECT password FROM user_table WHERE id='$id'";
-    $checkResult = mysqli_query($conn, $checkQuery);
+        $currentDate     = date('Y-m-d H:i:s');
+        echo $newPassword;
 
-    if(mysqli_num_rows($checkResult) > 0){
+        $query = "SELECT password FROM user_table WHERE id='$id'";
+        $result = mysqli_query($conn, $query);
 
-        $userData = mysqli_fetch_array($checkResult);
-        $dbPassword = $userData['password'];
+        if(mysqli_num_rows($result) > 0){
+            $userData = mysqli_fetch_assoc($result);
+            $dbPassword = $userData['password'];
 
-        // Check entered current password with database password
-        if($currentPassword != $dbPassword){
-
-            $response['status'] = 'error';
-            $response['message'] = 'Current password is incorrect !!';
-
-        }
-        else{
-
-            // Check password length
-            if(strlen($currentPassword) < 8 || strlen($confirmPassword) < 8){
-
+            // Check current password
+            if(empty($newPassword)){
                 $response['status'] = 'error';
-                $response['message'] = 'Password must be at least 8 characters long !!';
-
+                $response['message'] = 'New password is required!';
             }
-            // Check current and confirm password match
-            elseif($currentPassword != $confirmPassword){
-
+            elseif(strlen($newPassword) < 8){
                 $response['status'] = 'error';
-                $response['message'] = 'Current password and confirm password do not match !!';
-
+                $response['message'] = 'Password must be at least 8 characters long!';
             }
-
+            elseif(!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};:"\\\\|,.<>\/?]).{8,}$/', $newPassword)){
+                $response['status'] = 'error';
+                $response['message'] = 'Password must contain uppercase, lowercase, number and special character!';
+            }
+            // Check confirm password
+            elseif($newPassword != $confirmPassword){
+                $response['status'] = 'error';
+                $response['message'] = 'New password and confirm password do not match!';
+            }
             else{
+                // Save new password as MD5
+                $hashedPassword = md5($confirmPassword);
+                echo $confirmPassword;
 
-                // Update profile
-                $updateQuery = "UPDATE user_table  SET name='$userName', email='$email',  updated_date='$currentDate'  WHERE id='$id'";
+                $updateQuery = "UPDATE user_table SET name='$userName', email='$email', password='$hashedPassword', updated_date='$currentDate' WHERE id='$id'";
 
-                $updateResult = mysqli_query($conn, $updateQuery);
-
-                if($updateResult){
-
+                if(mysqli_query($conn, $updateQuery)){
                     $response['status'] = 'success';
-                    $response['message'] = 'Profile Updated Successfully';
-
+                    $response['message'] = 'Profile updated successfully!';
                 }
                 else{
-
                     $response['status'] = 'error';
-                    $response['message'] = 'Something went wrong !!';
-
+                    $response['message'] = 'Something went wrong!';
                 }
-
             }
-
         }
-
-    }
-    else{
-
-        $response['status'] = 'error';
-        $response['message'] = 'User not found !!';
-
+        else{
+            $response['status'] = 'error';
+            $response['message'] = 'User not found!';
+        }
     }
 
-}
+
     echo json_encode($response);
 
 ?>
