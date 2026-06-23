@@ -1,5 +1,14 @@
 <?php include '../common_pages/header.php'; ?>
 <?php include '../common_pages/sidebar.php'; ?>
+<?php
+
+    if ($_SESSION['genre'] == 'user') {
+        header("Location: dashboard.php");
+        exit();
+    }
+
+
+?>
     <!-- Main Content -->
     <div class="main-content">
         <div class="whiteCard">

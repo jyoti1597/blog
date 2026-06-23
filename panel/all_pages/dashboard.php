@@ -28,11 +28,12 @@
 
             <!-- Cards -->
             <div class="countSection">
-                <div class="card">
-                    <h3>Users</h3>
-                    <p>+ <?php echo $userCount; ?></p>
-                </div>
-
+                <?php if($_SESSION['genre'] == 'admin'){ ?>
+                    <div class="card">
+                        <h3>Users</h3>
+                        <p>+ <?php echo $userCount; ?></p>
+                    </div>
+                <?php } ?>
                 <div class="card">
                     <h3>Categories</h3>
                     <p>+ <?php echo $categoryCount; ?></p>
