@@ -81,9 +81,11 @@
                                 }
                                 
                                 $offset = ($page - 1) * $limit;
+                                
+                                $search = $_GET["search"] ?? '';
 
-                                $where = "WHERE b.status = 0 AND create_date = CURDATE()";
-                                $search = $_GET["search"];
+                                $where = "WHERE b.status = 0 AND b.create_date = CURDATE()";
+                                
 
                                 if (!empty($search)) {
                                     $where .= " AND (b.title LIKE '%$search%' OR c.category_name LIKE '%$search%' OR u.name LIKE '%$search%')";
@@ -91,8 +93,6 @@
 
                                 $blogQuery = "SELECT b.*,  c.category_name, u.name as author_name FROM blog_table b LEFT JOIN category_table c ON b.category_id = c.id LEFT JOIN user_table u ON b.userId = u.id $where ORDER BY b.id DESC LIMIT {$offset}, {$limit}";
 
-
-                                echo $blogQuery;
                                 $blogResult = mysqli_query($conn, $blogQuery);
 
                                 $count = 0;
