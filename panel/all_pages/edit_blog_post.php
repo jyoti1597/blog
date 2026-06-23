@@ -68,20 +68,10 @@
                                     <input type="text" id="title" name="title" placeholder="Enter blog title" value="<?php echo $title; ?>" required>
                                 </div>
                             </div>
-                            <!-- <div class="inputGroup">
-                                <label for="status">Status</label>
-                                <select id="status" name="status" required>
-                                    <option value="">Select status</option>
-                                    <option value="1" <?php echo ($status == 1) ? 'selected' : ''; ?>>Active</option>
-                                    <option value="2" <?php echo ($status == 2) ? 'selected' : ''; ?>>Inactive</option>
-                                </select>
-                            </div> -->
                             <div class="col-12">
                                 <div class="inputGroup">
                                     <label for="description">Description</label>
-                                    <textarea id="description" name="description" placeholder="Enter blog description"  rows="10">
-                                        <?php echo $description; ?>
-                                    </textarea>
+                                    <textarea id="description" name="description" placeholder="Enter blog description"  rows="10"><?php echo $description; ?></textarea>
                                 </div>
                             </div>
                             <div class="col-12 mt-24 d-flex justify-content-center">

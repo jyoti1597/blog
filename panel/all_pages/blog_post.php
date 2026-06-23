@@ -10,7 +10,7 @@
             <!--form section -->
             <form class="common-form-method" method="POST" enctype="multipart/form-data">
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-md-4">
                         <div class="inputGroup">
                             <label for="categoryId">Category</label>
                             <input type="hidden" name="form_name" value="blog-post">
@@ -39,27 +39,19 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-md-4">
                         <div class="inputGroup">
                             <label for="title">Title</label>
                             <input type="text" id="title" name="title" placeholder="Enter blog title" required>
                         </div>
                     </div>
-                    <!-- <div class="inputGroup">
-                        <label for="status">Status</label>
-                        <select id="status" name="status" required>
-                            <option value="">Select status</option>
-                            <option value="1">Active</option>
-                            <option value="2">Inactive</option>
-                        </select>
-                    </div> -->
-                    <div class="col-4">
+                    <div class="col-md-4">
                         <div class ="inputGroup">
                             <label for="image">Image </label>
                             <input type="file" name="image" id="image" accept="image/*" required>
                         </div>
                     </div>
-                    <div class="col-12">
+                    <div class="col-md-12">
                         <div class="inputGroup">
                             <label for="description">Description</label>
                             <textarea id="description" name="description" placeholder="Enter blog description"></textarea>
